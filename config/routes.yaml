@@ -1,0 +1,51 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+productCreate:
+  path:       /product/create
+  controller: App\Controller\AdminController::productCreate
+
+productList:
+  path:       /product/list
+  controller: App\Controller\AdminController::productList
+
+productEdit:
+  path:       /product/edit/{id}
+  controller: App\Controller\AdminController::productEdit
+
+productImage:
+  path:       /product/image/{id}
+  controller: App\Controller\AdminController::productImage
+
+productDelete:
+  path: /product/delete/{id}
+  controller: App\Controller\AdminController::productDelete
+
+categoryCreate:
+  path:       /category/create
+  controller: App\Controller\AdminController::categoryCreate
+
+categoryEdit:
+  path:       /category/edit/{id}
+  controller: App\Controller\AdminController::categoryEdit
+
+categoryList:
+  path:       /category/list
+  controller: App\Controller\AdminController::categoryList
+
+categoryDelete:
+  path: /category/delete/{id}
+  controller: App\Controller\AdminController::categoryDelete
+
+addProductToOrder:
+  path: /order/product/add/{id}
+  controller: App\Controller\OrderController::addProductToOrder
+
+basketProduct:
+  path: /product/basket
+  controller: App\Controller\OrderController::basketProduct
+
+basketProductDelete:
+  path: /basket/product/delete/{id}
+  controller: App\Controller\OrderController::basketProductDelete

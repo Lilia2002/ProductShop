@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col" class="float-right">Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in category %}
+            <tr>
+                <th scope="row">{{ category.id }}</th>
+                <td>{{ category.name }}</td>
+                <td class="float-right">
+                    <a href="{{ path('categoryEdit', {
+                        'id': category.id
+                    }) }}" class="btn btn-dark">Edit</a>
+                    <a href="{{ path('categoryDelete', {
+                        'id': category.id
+                    }) }}" class="btn btn-dark">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
