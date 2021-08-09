@@ -5,17 +5,13 @@ namespace App\Command;
 
 use App\Entity\Category;
 use App\Entity\Product;
-use App\Form\Type\ProductType;
+use App\Service\EmailService;
+use App\Service\EmailServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 
 class FetchProductsCommand extends Command
@@ -29,23 +25,19 @@ class FetchProductsCommand extends Command
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /** @var MailerInterface  */
-    private $mailer;
+    /** @var EmailServiceInterface */
+    private $service;
 
-    public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager, MailerInterface $mailer)
+
+    public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager, EmailService $service)
     {
         $this->httpClient    = $httpClient;
         $this->entityManager = $entityManager;
-        $this->mailer        = $mailer;
+        $this->service       = $service;
 
         parent::__construct();
     }
 
-
-    protected function configure(): void
-    {
-        // ...
-    }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -77,15 +69,7 @@ class FetchProductsCommand extends Command
             }
         }
 
-
-        // отправить письмо об успешном экспорте себе на рабочую почту
-        $email = (new Email())
-            ->from('devzimalab@gmail.com')
-            ->to('liliya.p@zimalab.com')
-            ->subject('Экспорт данных')
-            ->html('<p>Данные успешно добавлены в базу!</p>');
-
-        $this->mailer->send($email);
+        $this->service->exportCompletedEmail('liliya.p@zimalab.com');
 
         return Command::SUCCESS;
     }

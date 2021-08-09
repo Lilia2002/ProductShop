@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="orders")
- * @ORM\HasLifecycleCallbacks()
  */
 class Order
 {
@@ -95,10 +94,11 @@ class Order
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTime $createdAt): Order
+
+    public function setCreatedAt()
     {
-        $this->createdAt = $createdAt;
-        return $this;
+        $this->createdAt = new DateTime();
+
     }
 
     public function getUpdatedAt(): ?\DateTime
@@ -106,9 +106,7 @@ class Order
         return $this->updatedAt;
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
+
     public function setUpdatedAt()
     {
         $this->updatedAt = new DateTime();

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\Type\ProductType;
 
+
 class AdminController extends AbstractController
 {
     public function productCreate(Request $request)
@@ -180,10 +181,11 @@ class AdminController extends AbstractController
             throw $this->createNotFoundException();
         }
 
+        $this->getUser();
+
         $entityManager->remove($category);
         $entityManager->flush();
 
         return $this->redirectToRoute("categoryList");
     }
-
 }

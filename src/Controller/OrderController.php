@@ -8,10 +8,10 @@ use App\Entity\Order;
 use App\Entity\OrderProduct;
 use App\Entity\Product;
 use App\Form\Type\BasketType;
+use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 
 
 class OrderController extends AbstractController
@@ -32,9 +32,7 @@ class OrderController extends AbstractController
         if (!$order) {
             $order = new Order();
 
-            $datetime = new \DateTime();
             $order
-                ->setCreatedAt($datetime)
                 ->setStatus(Order::STATUS_BASKET)
                 ->setUniqueId($uniqueId)
             ;
@@ -73,7 +71,7 @@ class OrderController extends AbstractController
         return $this->redirectToRoute("productList");
     }
 
-    public function basketProduct(Request $request, MailerInterface $mailer)
+    public function basketProduct(Request $request, MailerInterface $mailer, EmailService $service)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -94,16 +92,7 @@ class OrderController extends AbstractController
             $entityManager->persist($order);
             $entityManager->flush();
             
-            $email = new Email();
-
-            $email
-                ->from('devzimalab@gmail.com')
-                ->to('liliya.p@zimalab.com')
-                ->subject('Processing')
-                ->html('<p>Product status - processing!</p>')
-            ;
-
-            $mailer->send($email);
+            $service->sendOrderStatusChangedEmail('liliya.p@zimalab.com', 'processing');
         }
 
         return $this->render('product/listBasket.html.twig', [

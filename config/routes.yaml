@@ -49,3 +49,11 @@ basketProduct:
 basketProductDelete:
   path: /basket/product/delete/{id}
   controller: App\Controller\OrderController::basketProductDelete
+
+app_logout:
+  path: /logout
+  methods: GET
+
+userRegisters:
+  path: /registers
+  controller: App\Controller\SecurityController::userRegisters
