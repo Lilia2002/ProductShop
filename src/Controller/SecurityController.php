@@ -23,10 +23,8 @@ class SecurityController extends AbstractController
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
         // }
-
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
+
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
@@ -51,8 +49,8 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $passwordHasher = $hasherFactory->getPasswordHasher($user);
-            $user->setPassword($passwordHasher->hash($user->getPassword()));
+            $passwordHash = $hasherFactory->getPasswordHasher($user);
+            $user->setPassword($passwordHash->hash($user->getPassword()));
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -65,6 +63,4 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-
 }

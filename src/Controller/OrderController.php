@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\OrderProduct;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\Type\BasketType;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +34,7 @@ class OrderController extends AbstractController
             $order = new Order();
 
             $order
+                ->setUser($this->getUser())
                 ->setStatus(Order::STATUS_BASKET)
                 ->setUniqueId($uniqueId)
             ;
@@ -71,7 +73,7 @@ class OrderController extends AbstractController
         return $this->redirectToRoute("productList");
     }
 
-    public function basketProduct(Request $request, MailerInterface $mailer, EmailService $service)
+    public function viewBasket(Request $request, MailerInterface $mailer, EmailService $service)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -86,7 +88,18 @@ class OrderController extends AbstractController
         $form = $this->createForm(BasketType::class, $order);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if (!$order->getUser()) {
+                $this->addFlash(
+                    'warning',
+                    'Необходимо зарегистрироваться, чтобы оформить заказ!'
+                );
+                return $this->redirectToRoute("userRegisters");
+            }
+            $user = new User();
+            $user->setOrders($order);
             $order->setStatus(Order::STATUS_PROCESSING);
 
             $entityManager->persist($order);

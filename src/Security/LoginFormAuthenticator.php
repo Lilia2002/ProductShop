@@ -2,6 +2,8 @@
 
 namespace App\Security;
 
+use App\Entity\Order;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +26,13 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     private $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    /** @var EntityManagerInterface */
+    private $entityManager;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
     {
-        $this->urlGenerator = $urlGenerator;
+        $this->urlGenerator  = $urlGenerator;
+        $this->entityManager = $entityManager;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -46,11 +52,21 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        $uniqueId = $request->getSession()->get('orderId');
+        $order = $this->entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
+
+        if ($order) {
+            $order->setUser($token->getUser());
+
+            $this->entityManager->persist($order);
+            $this->entityManager->flush();
+        }
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('app_homepage'));
+        return new RedirectResponse($this->urlGenerator->generate('productList'));
     }
 
     protected function getLoginUrl(Request $request): string

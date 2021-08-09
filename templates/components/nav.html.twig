@@ -23,6 +23,10 @@
             </li>
             <li class="nav-item{{ app.request.get('_route') == 'basketProduct' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('basketProduct') }}">Корзина</a>
+            <li class="nav-item{{ app.request.get('_route') == 'userRegisters' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ path('userRegisters') }}">Регистрация</a>
+            <li class="nav-item{{ app.request.get('_route') == 'login' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ path('login') }}">Авторизация</a>
             </li>
         </ul>
     </div>

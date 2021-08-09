@@ -41,6 +41,13 @@ class Order
     private $uniqueId;
 
     /**
+     * @var User|null
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders", cascade={"persist"})
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
@@ -167,6 +174,24 @@ class Order
     {
         $orderProduct->setOrder($this);
         $this->orderProducts->add($orderProduct);
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User|null $user
+     * @return Order
+     */
+    public function setUser(?User $user): Order
+    {
+        $this->user = $user;
         return $this;
     }
 }
