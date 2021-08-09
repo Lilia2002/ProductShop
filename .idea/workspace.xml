@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="idea directory added to gitignore">
+    <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/src/EventListener/OrderEventListener.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Form/Type/RegistersType.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/Service/EmailService.php" afterDir="false" />
@@ -237,7 +237,7 @@
       <workItem from="1628078347072" duration="710000" />
       <workItem from="1628140171953" duration="18838000" />
       <workItem from="1628225039399" duration="24432000" />
-      <workItem from="1628488969777" duration="799000" />
+      <workItem from="1628488969777" duration="1111000" />
     </task>
     <task id="LOCAL-00001" summary="idea directory added to gitignore">
       <created>1628229616794</created>
@@ -246,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628229616794</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="idea directory added to gitignore">
+      <created>1628489950276</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1628489950276</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
