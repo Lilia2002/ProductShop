@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
+    <div class="container">
+        <div class="row">
     <style>
         th {
             height: 30%;
@@ -72,15 +75,24 @@
                         }) }}" class="btn btn-light btn-sm">Add</a>
                     {% endif %}
 
+                    {% if is_granted('ROLE_MANAGER') %}
                     <a href="{{ path('productEdit', {
                         'id': product.id
                     }) }}" class="btn btn-dark btn-sm">Edit</a>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('productDelete', {
                         'id': product.id
-                    }) }}" class="btn btn-dark btn-sm">Delete</a></td>
+                    }) }}" class="btn btn-dark btn-sm">Delete</a>
+                    {% endif %}
+                </td>
+
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
+    </div>
+</div>
 {% endblock %}
+

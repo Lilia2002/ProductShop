@@ -13,7 +13,7 @@ class EmailService implements EmailServiceInterface
     /** @var MailerInterface  */
     private $mailer;
 
-    public function __construct( MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
     }

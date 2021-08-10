@@ -1,22 +1,19 @@
 <?php
 
-
 namespace App\Controller;
-
 
 use App\Entity\Order;
 use App\Entity\OrderProduct;
 use App\Entity\Product;
-use App\Entity\User;
 use App\Form\Type\BasketType;
 use App\Service\EmailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 
 
 class OrderController extends AbstractController
 {
+    
     public function addProductToOrder(Request $request, $id)
     {
         $uniqueId = $request->getSession()->get('orderId');
@@ -73,7 +70,7 @@ class OrderController extends AbstractController
         return $this->redirectToRoute("productList");
     }
 
-    public function viewBasket(Request $request, MailerInterface $mailer, EmailService $service)
+    public function viewBasket(Request $request, EmailService $service)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -87,7 +84,7 @@ class OrderController extends AbstractController
 
         $form = $this->createForm(BasketType::class, $order);
 
-        $form->handleRequest($request);
+        $form->handleRequest($request); // handle - обработать
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -98,8 +95,7 @@ class OrderController extends AbstractController
                 );
                 return $this->redirectToRoute("userRegisters");
             }
-            $user = new User();
-            $user->setOrders($order);
+
             $order->setStatus(Order::STATUS_PROCESSING);
 
             $entityManager->persist($order);
@@ -110,7 +106,7 @@ class OrderController extends AbstractController
 
         return $this->render('product/listBasket.html.twig', [
             'order' => $order,
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
         ]);
     }
 

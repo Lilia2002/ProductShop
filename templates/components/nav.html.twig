@@ -6,28 +6,42 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Главная</a>
+            <li class="nav-item {{ app.request.get('_route') == 'homepage' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ path('homepage') }}">Главная</a>
             </li>
+            <li class="nav-item {{ app.request.get('_route') == 'productList' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ path('productList') }}">Список продуктов</a>
+            </li>
+            {% if is_granted('ROLE_MANAGER') %}
             <li class="nav-item {{ app.request.get('_route') == 'categoryList' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('categoryList') }}">Категории</a>
             </li>
             <li class="nav-item {{ app.request.get('_route') == 'categoryCreate' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('categoryCreate') }}">Создать категорию</a>
             </li>
-            <li class="nav-item {{ app.request.get('_route') == 'productList' ? ' active' : '' }}">
-                <a class="nav-link" href="{{ path('productList') }}">Список продуктов</a>
-            </li>
             <li class="nav-item{{ app.request.get('_route') == 'productCreate' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('productCreate') }}">Добавить продукт</a>
             </li>
+            {% endif %}
             <li class="nav-item{{ app.request.get('_route') == 'basketProduct' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('basketProduct') }}">Корзина</a>
+        </ul>
+
+        <ul class="navbar-nav">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
             <li class="nav-item{{ app.request.get('_route') == 'userRegisters' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('userRegisters') }}">Регистрация</a>
             <li class="nav-item{{ app.request.get('_route') == 'login' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('login') }}">Авторизация</a>
             </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link">{{ app.user.username }}</a>
+                </li>
+            <li class="nav-item{{ app.request.get('_route') == 'app_logout' ? ' active' : '' }}">
+                <a class="nav-link" href="{{ path('app_logout') }}">Выйти</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

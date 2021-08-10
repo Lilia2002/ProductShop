@@ -9,6 +9,10 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
+!/public/uploads/product/.gitkeep
+/public/uploads/product/
+
+
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
 /phpunit.xml

@@ -14,10 +14,6 @@ productEdit:
   path:       /product/edit/{id}
   controller: App\Controller\AdminController::productEdit
 
-productImage:
-  path:       /product/image/{id}
-  controller: App\Controller\AdminController::productImage
-
 productDelete:
   path: /product/delete/{id}
   controller: App\Controller\AdminController::productDelete
@@ -62,3 +58,6 @@ login:
   path: /login
   controller: App\Controller\SecurityController::login
 
+homepage:
+  path: /
+  controller: App\Controller\HomeController::homepage

@@ -14,8 +14,17 @@ use App\Form\Type\ProductType;
 
 class AdminController extends AbstractController
 {
+    /**
+     * создание/редактирование продуктов,категорий - доступно только менеджерам и выше
+     * удаление продуктов/категорий - доступно только админу
+     * проследить чтобы простому юзеру не были видны кнопки Создания/редактирования/удаления продукта/категории
+     * простому юзеру доступен только список продуктов
+     */
+
     public function productCreate(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $product = new Product();
@@ -57,6 +66,8 @@ class AdminController extends AbstractController
 
     public function productEdit($id, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $product = $entityManager->getRepository(Product::class)->find($id);
@@ -86,25 +97,11 @@ class AdminController extends AbstractController
         ]);
     }
 
-    public function productImage($id, Request $request)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $product = $entityManager->getRepository(Product::class)->find($id);
-
-        $form = $this->createForm(ProductType::class, $product);
-
-        $form->handleRequest($request);
-
-        return $this->render('product/form.html.twig', [
-            'form' => $form->createView(),
-        ]);
-
-
-    }
 
     public function productDelete($id, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $product = $entityManager->getRepository(Product::class)->find($id);
@@ -117,6 +114,8 @@ class AdminController extends AbstractController
 
     public function categoryCreate(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $category = new Category();
@@ -129,7 +128,7 @@ class AdminController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute("categoryEdit", [
-            'id' => $category->getId(),
+                'id' => $category->getId(),
             ]);
         }
 
@@ -141,6 +140,8 @@ class AdminController extends AbstractController
 
     public function categoryEdit($id, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $category = $entityManager->getRepository(Category::class)->find($id);
@@ -164,6 +165,8 @@ class AdminController extends AbstractController
 
     public function categoryList(Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
         $entityManager = $this->getDoctrine()->getManager();
         $categories = $entityManager->getRepository(Category::class)->findAll();
 
@@ -174,6 +177,8 @@ class AdminController extends AbstractController
 
     public function categoryDelete($id, Request $request)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $entityManager = $this->getDoctrine()->getManager();
 
         $category = $entityManager->getRepository(Category::class)->find($id);

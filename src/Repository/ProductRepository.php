@@ -34,4 +34,15 @@ class ProductRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findProductsLimited(int $limit = 3)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->setMaxResults(3)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }
