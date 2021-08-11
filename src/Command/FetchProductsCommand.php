@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 
@@ -38,6 +39,8 @@ class FetchProductsCommand extends Command
         parent::__construct();
     }
 
+    // создать команду для создания пользователя с возможностью выбора роли, и всех остальных полей пользователя
+    // создать команду для изменения ролей пользователя
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -65,12 +68,13 @@ class FetchProductsCommand extends Command
                 $product->setCategory($category);
 
                 $this->entityManager->persist($product);
-                $this->entityManager->flush();
             }
         }
+        $this->entityManager->flush();
 
         $this->service->exportCompletedEmail('liliya.p@zimalab.com');
 
         return Command::SUCCESS;
     }
+
 }

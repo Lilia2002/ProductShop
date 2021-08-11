@@ -14,13 +14,6 @@ use App\Form\Type\ProductType;
 
 class AdminController extends AbstractController
 {
-    /**
-     * создание/редактирование продуктов,категорий - доступно только менеджерам и выше
-     * удаление продуктов/категорий - доступно только админу
-     * проследить чтобы простому юзеру не были видны кнопки Создания/редактирования/удаления продукта/категории
-     * простому юзеру доступен только список продуктов
-     */
-
     public function productCreate(Request $request)
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
