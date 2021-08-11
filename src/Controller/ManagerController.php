@@ -26,10 +26,13 @@ class ManagerController extends AbstractController
 
         $form->handleRequest($request);
         $status = $form->get('Status')->getData();
+
         if (!$status) {
-            $status = $request->query->get('status', 'basket');
+            $orders = $entityManager->getRepository(Order::class)->findOrdersSorted(null, $fieldName, $direction);
         }
-        $orders = $entityManager->getRepository(Order::class)->findOrdersSorted($fieldName, $direction, $status);
+        else {
+            $orders = $entityManager->getRepository(Order::class)->findOrdersSorted($status, $fieldName, $direction);
+        }
         return $this->render('product/listOrders.html.twig', [
             'orders' => $orders,
             'form' => $form->createView(),
@@ -42,7 +45,7 @@ class ManagerController extends AbstractController
 
         $order = $entityManager->getRepository(Order::class)->find($id);
 
-        $form = $this->createForm(OrderEditType::class, $order);
+        $form = $this->createForm(OrderType::class, $order);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

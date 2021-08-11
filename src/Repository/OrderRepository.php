@@ -27,21 +27,28 @@ class OrderRepository extends ServiceEntityRepository
     /**
      * @return Order[]|array
      */
-    public function findOrdersSorted(string $fieldName = 'o.status', string $direction = 'ASC', string $status = 'basket'): array
+    public function findOrdersSorted(?string $status, string $fieldName = 'o.status', string $direction = 'ASC'): array
     {
         $qb = $this->createQueryBuilder('o');
 
-        $qb
+            $qb
+                ->addSelect('SUM(op.amount) as HIDDEN amount')
 
-            ->addSelect('SUM(op.amount) as HIDDEN amount')
-            ->andWhere('o.status = :status')
-            ->setParameter('status', $status)
-            ->groupBy('o')
-            ->leftJoin('o.orderProducts', 'op')
-            ->addOrderBy($fieldName, $direction)
-        ;
+            ;
+            if ($status) {
+            $qb
+                ->andWhere('o.status = :status')
+                ->setParameter('status', $status);
+            }
+
+            $qb
+                ->groupBy('o')
+                ->leftJoin('o.orderProducts', 'op')
+                ->addOrderBy($fieldName, $direction)
+            ;
 
         return $qb->getQuery()->getResult();
+
     }
 }
 

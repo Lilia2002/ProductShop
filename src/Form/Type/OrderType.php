@@ -25,6 +25,7 @@ class OrderType extends AbstractType
                     'Sent'       => Order::STATUS_SENT,
                     'Completed'  => Order::STATUS_COMPLETED,
                     'Canceled'   => Order::STATUS_CANCELED,
+                    'All'        => '',
                 ],
             ])
             ->add('Filter', SubmitType::class, ['label' => 'Filter'])
