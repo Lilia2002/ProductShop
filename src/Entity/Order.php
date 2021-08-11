@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -17,6 +17,8 @@ class Order
     const STATUS_PROCESSING = 'processing';
     const STATUS_SENT       = 'sent';
     const STATUS_COMPLETED  = 'completed';
+    const STATUS_CANCELED   = 'canceled';
+
 
     /**
      * @ORM\Id
@@ -38,7 +40,18 @@ class Order
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $img;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $uniqueId;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateTime;
+
 
     /**
      * @var User|null
@@ -93,6 +106,29 @@ class Order
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+        return $this;
+    }
+
+    public function getDateTime(): ?\DateTime
+    {
+        return $this->dateTime;
+    }
+
+
+    public function setDateTime(?\DateTime $dateTime): self
+    {
+        $this->dateTime = $dateTime;
         return $this;
     }
 

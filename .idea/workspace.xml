@@ -4,12 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="Distribution of user roles">
-      <change afterPath="$PROJECT_DIR$/src/Command/CreateUserCommand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Command/EditRolesCommand.php" afterDir="false" />
+    <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/ManagerController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/Type/OrderEditType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/Type/OrderSentType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/Type/OrderType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/OrderRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/product/listOrders.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/FetchProductsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/FetchProductsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/nav.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/homepage.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +247,7 @@
       <workItem from="1628225039399" duration="24432000" />
       <workItem from="1628488969777" duration="23914000" />
       <workItem from="1628568248844" duration="26894000" />
-      <workItem from="1628654666988" duration="374000" />
+      <workItem from="1628654666988" duration="20991000" />
     </task>
     <task id="LOCAL-00001" summary="idea directory added to gitignore">
       <created>1628229616794</created>
@@ -291,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628582677468</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="commands for creating user and editing roles">
+      <created>1628655113051</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1628655113052</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,7 +328,8 @@
     <MESSAGE value="linking the cart to users" />
     <MESSAGE value="Creating a home page" />
     <MESSAGE value="Distribution of user roles" />
-    <option name="LAST_COMMIT_MESSAGE" value="Distribution of user roles" />
+    <MESSAGE value="commands for creating user and editing roles" />
+    <option name="LAST_COMMIT_MESSAGE" value="commands for creating user and editing roles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

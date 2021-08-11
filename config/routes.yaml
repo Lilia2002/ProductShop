@@ -61,3 +61,19 @@ login:
 homepage:
   path: /
   controller: App\Controller\HomeController::homepage
+
+orderList:
+  path:       /order/list
+  controller: App\Controller\ManagerController::orderList
+
+statusEdit:
+  path:       /order/edit/{id}
+  controller: App\Controller\ManagerController::statusEdit
+
+statusSent:
+  path:       /order/sent/{id}
+  controller: App\Controller\ManagerController::statusSent
+
+statusCanceled:
+  path:       /order/canceled/{id}
+  controller: App\Controller\ManagerController::statusCanceled
