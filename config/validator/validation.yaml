@@ -1,4 +1,7 @@
 App\Entity\User:
+    constraints:
+        -   Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+
     properties:
         username:
             - Length:
@@ -14,6 +17,8 @@ App\Entity\User:
             - Length:
                   min: 3
                   minMessage: 'Your first name must be at least {{ limit }} characters long'
+
+
 
         email:
             - Email:
