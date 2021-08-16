@@ -1,0 +1,28 @@
+App\Entity\User:
+    properties:
+        username:
+            - Length:
+                  min: 3
+                  minMessage: 'Your first name must be at least {{ limit }} characters long'
+
+        firstName:
+            - Length:
+                  min: 3
+                  minMessage: 'Your first name must be at least {{ limit }} characters long'
+
+        lastName:
+            - Length:
+                  min: 3
+                  minMessage: 'Your first name must be at least {{ limit }} characters long'
+
+        email:
+            - Email:
+                  message: 'The email "{{ value }}" is not a valid email'
+
+        password:
+            - Sequentially:
+                    - Length:
+                        min: 3
+                    - Regex:
+                        pattern: '/^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i'
+                        message: 'Password must contain at least one letter'
