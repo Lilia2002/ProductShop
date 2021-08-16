@@ -4,9 +4,8 @@
 namespace App\Repository;
 
 
-namespace App\Repository;
-
 use App\Entity\Order;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,22 +22,22 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-
     /**
      * @return Order[]|array
      */
-    public function findOrdersSorted(?string $status, string $fieldName = 'o.status', string $direction = 'ASC'): array
+    public function findOrdersSorted(string $fieldName = 'o.status', string $direction = 'ASC', ?string $status = null): array
     {
         $qb = $this->createQueryBuilder('o');
 
             $qb
                 ->addSelect('SUM(op.amount) as HIDDEN amount')
-
             ;
+
             if ($status) {
-            $qb
-                ->andWhere('o.status = :status')
-                ->setParameter('status', $status);
+                $qb
+                    ->andWhere('o.status = :status')
+                    ->setParameter('status', $status)
+                ;
             }
 
             $qb
@@ -48,7 +47,30 @@ class OrderRepository extends ServiceEntityRepository
             ;
 
         return $qb->getQuery()->getResult();
+    }
 
+    /**
+     * @return Order[]|array
+     */
+    public function findUserOrdersSorted(string $fieldName = 'o.status', string $direction = 'ASC', ?User $user = null): array
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb
+            ->addSelect('SUM(op.amount) as HIDDEN amount')
+            ->groupBy('o')
+            ->leftJoin('o.orderProducts', 'op')
+            ->addOrderBy($fieldName, $direction)
+        ;
+
+        if ($user) {
+            $qb
+                ->andWhere('o.user = :user')
+                ->setParameter('user', $user)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
 

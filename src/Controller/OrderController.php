@@ -51,7 +51,7 @@ class OrderController extends AbstractController
 
         $orderProduct = $entityManager->getRepository(OrderProduct::class)->findOneBy([
             'product' => $product,
-            'order' => $order,
+            'order'   => $order,
         ]);
 
         if (!$orderProduct) {

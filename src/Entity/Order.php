@@ -50,7 +50,12 @@ class Order
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dateTime;
+    private $sentAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $completedAt;
 
 
     /**
@@ -120,15 +125,27 @@ class Order
         return $this;
     }
 
-    public function getDateTime(): ?\DateTime
+    public function getSentAt(): ?\DateTime
     {
-        return $this->dateTime;
+        return $this->sentAt;
     }
 
 
-    public function setDateTime(?\DateTime $dateTime): self
+    public function setSentAt(?\DateTime $sentAt): self
     {
-        $this->dateTime = $dateTime;
+        $this->sentAt = $sentAt;
+        return $this;
+    }
+
+    public function getCompletedAt(): ?\DateTime
+    {
+        return $this->completedAt;
+    }
+
+
+    public function setCompletedAt(?\DateTime $completedAt): self
+    {
+        $this->completedAt = $completedAt;
         return $this;
     }
 
@@ -141,7 +158,6 @@ class Order
     public function setCreatedAt()
     {
         $this->createdAt = new DateTime();
-
     }
 
     public function getUpdatedAt(): ?\DateTime

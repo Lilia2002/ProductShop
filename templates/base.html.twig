@@ -13,9 +13,7 @@
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
+
     </head>
     <body>
     {% include 'components/nav.html.twig' %}
@@ -37,5 +35,10 @@
 {#            {% endfor %}#}
             {% block body %}{% endblock %}
 
+{#    место для jQuery #}
+
+    {% block javascripts %}
+        {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
     </body>
 </html>

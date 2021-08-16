@@ -86,6 +86,11 @@
                         'id': product.id
                     }) }}" class="btn btn-dark btn-sm">Delete</a>
                     {% endif %}
+                    {% if not product.priceHistories.empty() %}
+                    <a href="{{ path('priceDynamics', {
+                        'id': product.id
+                    }) }}" class="btn btn-dark btn-sm">PriceHistory</a>
+                    {% endif %}
                 </td>
 
             </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\EventListener\ProductEventListener;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
  * @ORM\Table(name="products")
+ * @ORM\EntityListeners({ProductEventListener::class})
  */
 class Product
 {
@@ -58,10 +60,37 @@ class Product
      */
     private $orderProducts;
 
+    /**
+     * @var PriceHistory[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\PriceHistory", mappedBy="product")
+     */
+    private $priceHistories;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
     }
+
+    /**
+     * @return PriceHistory[]|ArrayCollection
+     */
+    public function getPriceHistories()
+    {
+
+        return $this->priceHistories;
+    }
+
+    /**
+     * @param PriceHistory[]|ArrayCollection $priceHistories
+     * @return Product
+     */
+    public function setPriceHistories($priceHistories)
+    {
+        $this->priceHistories = $priceHistories;
+        return $this;
+    }
+
 
     public function getId(): ?int
     {

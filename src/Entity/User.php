@@ -23,22 +23,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private $email; // емейл должен быть вида что-то@что-то.что-то, должен быть уникальным и должен быть не пустым
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $username;
+    private $username; // минимум 3 символа
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstName;
+    private $firstName; // минимум 3 символа
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lastName;
+    private $lastName; // минимум 3 символа
 
     /**
      * @ORM\Column(type="json")
@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private $password; // минимум 3 символа, должен содержать буквы и числа
 
     /**
      * @var Order[]|ArrayCollection

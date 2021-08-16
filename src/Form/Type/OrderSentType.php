@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OrderSentType extends AbstractType
 {
@@ -22,19 +23,26 @@ class OrderSentType extends AbstractType
                 'mapped'   => false,
                 'required' => false,
             ])
-            ->add('dateTime', DateTimeType::class, [
+            ->add('sentAt', DateTimeType::class, [
                 'widget' => 'choice',
             ])
             ->add('Status', ChoiceType::class, [
                 'choices'        => [
-                    'Basket'     => Order::STATUS_BASKET,
-                    'Processing' => Order::STATUS_PROCESSING,
                     'Sent'       => Order::STATUS_SENT,
-                    'Completed'  => Order::STATUS_COMPLETED,
-                    'Canceled'   => Order::STATUS_CANCELED,
                 ],
             ])
             ->add('save', SubmitType::class, ['label' => 'Save'])
         ;
+//
+//        if ($options['data']->getDateTime()) {
+//            $builder->get('dateTime')->setData(new \DateTime());
+//        }
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Order::class,
+        ]);
     }
 }

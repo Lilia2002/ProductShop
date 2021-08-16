@@ -66,14 +66,32 @@ orderList:
   path:       /order/list
   controller: App\Controller\ManagerController::orderList
 
-statusEdit:
-  path:       /order/edit/{id}
-  controller: App\Controller\ManagerController::statusEdit
-
 statusSent:
   path:       /order/sent/{id}
   controller: App\Controller\ManagerController::statusSent
 
 statusCanceled:
   path:       /order/canceled/{id}
-  controller: App\Controller\ManagerController::statusCanceled
+  controller: App\Controller\ManagerController::changeOrderStatus
+  defaults:
+    requiredStatus: processing
+    newStatus: canceled
+
+statusBasket:
+  path:       /order/basket/{id}
+  controller: App\Controller\ManagerController::changeOrderStatus
+  defaults:
+    requiredStatus: canceled
+    newStatus: basket
+
+userOrderList:
+  path:       user/order/list
+  controller: App\Controller\ManagerController::userOrderList
+
+statusCompleted:
+  path:       /order/completed/{id}
+  controller: App\Controller\ManagerController::statusCompleted
+
+priceDynamics:
+  path:       /product/{id}/price-dynamic
+  controller: App\Controller\AdminController::showPriceDynamic

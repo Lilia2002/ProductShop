@@ -186,4 +186,30 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute("categoryList");
     }
+
+    public function showPriceDynamic(int $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        $priceHistory = $product->getPriceHistories();
+
+        if (!$priceHistory->first()) {
+            throw $this->createNotFoundException();
+        }
+
+        $price = [];
+        foreach ($priceHistory as $history) {
+            $price[] = $history->getPrice();
+        }
+
+        $averagePrice = array_sum($price)/count($price);
+
+
+        return $this->render('product/priceDynamics.html.twig', [
+            'priceHistory' => $priceHistory,
+            'averagePrice' => $averagePrice,
+        ]);
+    }
 }
