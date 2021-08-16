@@ -3,59 +3,59 @@
 #    controller: App\Controller\DefaultController::index
 
 productCreate:
-  path:       /product/create
-  controller: App\Controller\AdminController::productCreate
+  path:       /admin/product/create
+  controller: App\Controller\Admin\ProductController::productCreate
 
 productList:
   path:       /product/list
-  controller: App\Controller\AdminController::productList
+  controller: App\Controller\ProductController::productList
 
 productEdit:
-  path:       /product/edit/{id}
-  controller: App\Controller\AdminController::productEdit
+  path:       /admin/product/edit/{id}
+  controller: App\Controller\Admin\ProductController::productEdit
 
 productDelete:
-  path: /product/delete/{id}
-  controller: App\Controller\AdminController::productDelete
+  path:       /admin/product/delete/{id}
+  controller: App\Controller\Admin\ProductController::productDelete
 
 categoryCreate:
-  path:       /category/create
-  controller: App\Controller\AdminController::categoryCreate
+  path:       /admin/category/create
+  controller: App\Controller\Admin\CategoryController::categoryCreate
 
 categoryEdit:
-  path:       /category/edit/{id}
-  controller: App\Controller\AdminController::categoryEdit
+  path:       /admin/category/edit/{id}
+  controller: App\Controller\Admin\CategoryController::categoryEdit
 
 categoryList:
-  path:       /category/list
-  controller: App\Controller\AdminController::categoryList
+  path:       /admin/category/list
+  controller: App\Controller\Admin\CategoryController::categoryList
 
 categoryDelete:
-  path: /category/delete/{id}
-  controller: App\Controller\AdminController::categoryDelete
+  path:       /admin/category/delete/{id}
+  controller: App\Controller\Admin\CategoryController::categoryDelete
 
 addProductToOrder:
-  path: /order/product/add/{id}
+  path:       /order/product/add/{id}
   controller: App\Controller\OrderController::addProductToOrder
 
 basketProduct:
-  path: /product/basket
+  path:       /product/basket
   controller: App\Controller\OrderController::viewBasket
 
 basketProductDelete:
-  path: /basket/product/delete/{id}
+  path:       /basket/product/delete/{id}
   controller: App\Controller\OrderController::basketProductDelete
 
 app_logout:
-  path: /logout
+  path:    /logout
   methods: GET
 
 userRegisters:
-  path: /registers
+  path:       /registers
   controller: App\Controller\SecurityController::userRegisters
 
 login:
-  path: /login
+  path:       /login
   controller: App\Controller\SecurityController::login
 
 homepage:
@@ -63,30 +63,30 @@ homepage:
   controller: App\Controller\HomeController::homepage
 
 orderList:
-  path:       /order/list
-  controller: App\Controller\ManagerController::orderList
+  path:       /admin/order/list
+  controller: App\Controller\Admin\ManagerController::orderList
 
 statusSent:
-  path:       /order/sent/{id}
-  controller: App\Controller\ManagerController::statusSent
+  path:       /admin/order/sent/{id}
+  controller: App\Controller\Admin\ManagerController::statusSent
 
 statusCanceled:
-  path:       /order/canceled/{id}
-  controller: App\Controller\ManagerController::changeOrderStatus
+  path:       /admin/order/canceled/{id}
+  controller: App\Controller\Admin\ManagerController::changeOrderStatus
   defaults:
     requiredStatus: processing
-    newStatus: canceled
+    newStatus:      canceled
 
 statusBasket:
-  path:       /order/basket/{id}
-  controller: App\Controller\ManagerController::changeOrderStatus
+  path:       /admin/order/basket/{id}
+  controller: App\Controller\Admin\ManagerController::changeOrderStatus
   defaults:
     requiredStatus: canceled
-    newStatus: basket
+    newStatus:      basket
 
 userOrderList:
-  path:       user/order/list
-  controller: App\Controller\ManagerController::userOrderList
+  path:       /admin/user/order/list
+  controller: App\Controller\Admin\ManagerController::userOrderList
 
 statusCompleted:
   path:       /order/completed/{id}
@@ -94,4 +94,4 @@ statusCompleted:
 
 priceDynamics:
   path:       /product/{id}/price-dynamic
-  controller: App\Controller\AdminController::showPriceDynamic
+  controller: App\Controller\ProductController::showPriceDynamic

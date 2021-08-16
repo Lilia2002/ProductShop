@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/CategoryController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/ManagerController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/Admin/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/validator/validation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/validator/validation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ManagerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ManagerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +43,7 @@
     <setting file="file://$PROJECT_DIR$/templates/security/login.html.twig" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Controller/SecurityController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/config/packages/security.yaml" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Controller/AdminController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Controller/ProductController.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/templates/base.html.twig" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Entity/Category.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/Form/Type/ProductType.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
@@ -241,7 +248,7 @@
       <workItem from="1628568248844" duration="26894000" />
       <workItem from="1628654666988" duration="23379000" />
       <workItem from="1628741261756" duration="22160000" />
-      <workItem from="1629085017096" duration="22539000" />
+      <workItem from="1629085017096" duration="24014000" />
     </task>
     <task id="LOCAL-00001" summary="idea directory added to gitignore">
       <created>1628229616794</created>
@@ -320,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629107153020</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="validator registers">
+      <created>1629109550235</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1629109550235</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,7 +361,8 @@
     <MESSAGE value="creating a table of orders" />
     <MESSAGE value="validator registration" />
     <MESSAGE value="item price history statistics" />
-    <option name="LAST_COMMIT_MESSAGE" value="item price history statistics" />
+    <MESSAGE value="validator registers" />
+    <option name="LAST_COMMIT_MESSAGE" value="validator registers" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
