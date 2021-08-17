@@ -13,18 +13,20 @@ class ProductController extends AbstractController
 {
     public function productList(Request $request)
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager   = $this->getDoctrine()->getManager();
 
         $fieldName = $request->query->get('fieldName', 'p.name');
         $direction = $request->query->get('direction', 'ASC');
-        $products = $entityManager->getRepository(Product::class)->findProductsSorted($fieldName, $direction);
+        $query     = $request->query->get('query');
 
-        $uniqueId = $request->getSession()->get('orderId');
-        $order = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
+        $products  = $entityManager->getRepository(Product::class)->findProductsSearch($query, $fieldName, $direction);
+
+        $uniqueId  = $request->getSession()->get('orderId');
+        $order     = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
 
         return $this->render('product/list.html.twig', [
-            'products' => $products,
-            'order' => $order,
+            'products'       => $products,
+            'order'          => $order,
         ]);
     }
 

@@ -1,10 +1,7 @@
 <?php
 
-
 namespace App\Controller\Admin;
 
-
-use App\Entity\Category;
 use App\Entity\Product;
 use App\Form\Type\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -71,8 +68,6 @@ class ProductController extends AbstractController
             'form'    => $form->createView(),
         ]);
     }
-
-
 
     public function productDelete($id, Request $request)
     {

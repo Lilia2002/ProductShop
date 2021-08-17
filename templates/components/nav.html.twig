@@ -29,6 +29,12 @@
             <li class="nav-item{{ app.request.get('_route') == 'basketProduct' ? ' active' : '' }}">
                 <a class="nav-link" href="{{ path('basketProduct') }}">Корзина</a>
         </ul>
+        <div class="navbar-nav">
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" id="siteSearchInput" placeholder="Search" aria-label="Search" value="{{ app.request.query.get('query') }}">
+                <button class="btn btn-outline-success" id="siteSearchSubmit" type="submit">Search</button>
+            </form>
+        </div>
 
         <ul class="navbar-nav">
             {% if is_granted('IS_AUTHENTICATED_FULLY') == false %}
@@ -46,5 +52,6 @@
                 </li>
             {% endif %}
         </ul>
+
     </div>
 </nav>

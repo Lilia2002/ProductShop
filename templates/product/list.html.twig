@@ -3,101 +3,90 @@
 {% block body %}
     <div class="container">
         <div class="row">
-    <style>
-        th {
-            height: 30%;
-        }
-        td.actions {
-            text-align: right;
-        }
-        td.actions a{
-            margin: 2px;
-        }
-        p.hidden-text {
-            height: 75px;
-            overflow: hidden;
-        }
-    </style>
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th scope="col" >#</th>
-            <th scope="col"><a href="{{ path('productList', {
-                    'fieldName': 'p.name',
-                    'direction': app.request.query.get('direction') == 'DESC' ? 'ASC' : 'DESC'
-                }) }}"  class="btn btn-light">Name</a></th>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col" >#</th>
+                    <th scope="col"><a href="{{ path('productList', {
+                            'fieldName': 'p.name',
+                            'query': app.request.query.get('query'),
+                            'direction': app.request.query.get('direction') == 'DESC' ? 'ASC' : 'DESC'
+                        }) }}"  class="btn btn-light">Name</a></th>
 
-            <th scope="col">
-         <a href="{{ path('productList', {
-                    'fieldName': 'p.description',
-                    'direction': app.request.query.get('direction') == 'ASC' ? 'DESC' : 'ASC'
-         }) }}" class="btn btn-light">Description</a></th>
+                    <th scope="col">
+                        <a href="{{ path('productList', {
+                            'fieldName': 'p.description',
+                            'query': app.request.query.get('query'),
+                            'direction': app.request.query.get('direction') == 'ASC' ? 'DESC' : 'ASC'
+                        }) }}" class="btn btn-light">Description</a></th>
 
-            <th scope="col"><a href="{{ path('productList', {
-                    'fieldName': 'p.price',
-                    'direction': app.request.query.get('direction') == 'DESC' ? 'ASC' : 'DESC'
-                }) }}" class="btn btn-light">Price</a></th>
+                    <th scope="col"><a href="{{ path('productList', {
+                            'fieldName': 'p.price',
+                            'query': app.request.query.get('query'),
+                            'direction': app.request.query.get('direction') == 'DESC' ? 'ASC' : 'DESC'
+                        }) }}" class="btn btn-light">Price</a></th>
 
-            <th scope="col"><a href="{{ path('productList', {
-                    'fieldName': 'c.name',
-                    'direction': app.request.query.get('direction') == 'ASC' ? 'DESC' : 'ASC'
-                })  }}" class="btn btn-light">Category</a></th>
+                    <th scope="col"><a href="{{ path('productList', {
+                            'fieldName': 'c.name',
+                            'query': app.request.query.get('query'),
+                            'direction': app.request.query.get('direction') == 'ASC' ? 'DESC' : 'ASC'
+                        })  }}" class="btn btn-light">Category</a></th>
 
-            <th style="text-align: right" scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <th scope="row">{{ loop.index }}</th>
-                <td><p class="hidden-text">{{ product.name }}</p></td>
-                <td><p class="hidden-text">{{ product.description }}</p></td>
-                <td>{{ product.price/100 }} $</td>
-                <td>{% if product.category %}
-                        {{ product.category.name }}
-                    {% endif %}</td>
-                <td class="float-right actions">
+                    <th style="text-align: right" scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td><p class="hidden-text">{{ product.name }}</p></td>
+                            <td><p class="hidden-text">{{ product.description }}</p></td>
+                            <td>{{ product.price/100 }} $</td>
+                            <td>{% if product.category %}
+                                    {{ product.category.name }}
+                                {% endif %}</td>
+                            <td class="float-right actions">
 
-                    {% set hasProductInOrder = false %}
-                    {% for orderProduct in product.orderProducts %}
-                        {%  if  orderProduct.order == order %}
-                            {% set hasProductInOrder = true %}
-                        {% endif %}
+                                {% set hasProductInOrder = false %}
+                                {% for orderProduct in product.orderProducts %}
+                                    {%  if  orderProduct.order == order %}
+                                        {% set hasProductInOrder = true %}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if hasProductInOrder %}
+                                    <a href="{{ path('addProductToOrder', {
+                                        'id': product.id
+                                    }) }}" class="btn btn-success btn-sm">Add</a>
+                                {% else %}
+                                    <a href="{{ path('addProductToOrder', {
+                                        'id': product.id
+                                    }) }}" class="btn btn-light btn-sm">Add</a>
+                                {% endif %}
+
+                                {% if is_granted('ROLE_MANAGER') %}
+                                    <a href="{{ path('productEdit', {
+                                        'id': product.id
+                                    }) }}" class="btn btn-dark btn-sm">Edit</a>
+                                {% endif %}
+
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('productDelete', {
+                                        'id': product.id
+                                    }) }}" class="btn btn-dark btn-sm">Delete</a>
+                                {% endif %}
+
+                                {% if not product.priceHistories.empty() %}
+                                    <a href="{{ path('priceDynamics', {
+                                        'id': product.id
+                                    }) }}" class="btn btn-dark btn-sm">PriceHistory</a>
+                                {% endif %}
+                            </td>
+                        </tr>
                     {% endfor %}
-
-                    {% if hasProductInOrder %}
-                        <a href="{{ path('addProductToOrder', {
-                            'id': product.id
-                        }) }}" class="btn btn-success btn-sm">Add</a>
-                    {% else %}
-                        <a href="{{ path('addProductToOrder', {
-                            'id': product.id
-                        }) }}" class="btn btn-light btn-sm">Add</a>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_MANAGER') %}
-                    <a href="{{ path('productEdit', {
-                        'id': product.id
-                    }) }}" class="btn btn-dark btn-sm">Edit</a>
-                    {% endif %}
-
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('productDelete', {
-                        'id': product.id
-                    }) }}" class="btn btn-dark btn-sm">Delete</a>
-                    {% endif %}
-                    {% if not product.priceHistories.empty() %}
-                    <a href="{{ path('priceDynamics', {
-                        'id': product.id
-                    }) }}" class="btn btn-dark btn-sm">PriceHistory</a>
-                    {% endif %}
-                </td>
-
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 {% endblock %}
 

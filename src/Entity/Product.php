@@ -14,6 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    const DISCOUNT_NO               = 0;
+    const DISCOUNT_SALE             = 1;
+    const DISCOUNT_TWO_FOR_ONE      = 2;
+    const DISCOUNT_MORE_THAN_THREE  = 3;
+    const SALE_PERCENTAGE           = 0.3;
+    const SALE_PERCENTAGE_OPT       = 0.15;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -47,6 +54,12 @@ class Product
     private $quantity;
 
     /**
+     * @var int
+     * @ORM\Column(type="smallint", nullable=true, length=1, nullable=true)
+     */
+    private $discount = self::DISCOUNT_NO;
+
+    /**
      * @var Category|null
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="products", cascade={"persist"})
@@ -73,86 +86,128 @@ class Product
     }
 
     /**
-     * @return PriceHistory[]|ArrayCollection
+     * @return mixed
      */
-    public function getPriceHistories()
-    {
-
-        return $this->priceHistories;
-    }
-
-    /**
-     * @param PriceHistory[]|ArrayCollection $priceHistories
-     * @return Product
-     */
-    public function setPriceHistories($priceHistories)
-    {
-        $this->priceHistories = $priceHistories;
-        return $this;
-    }
-
-
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    /**
+     * @param mixed $id
+     * @return Product
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    /**
+     * @param mixed $name
+     * @return Product
+     */
+    public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
-    public function getPrice(): ?int
+    /**
+     * @return mixed
+     */
+    public function getPrice()
     {
         return $this->price;
     }
 
-    public function setPrice(?int $price): self
+    /**
+     * @param mixed $price
+     * @return Product
+     */
+    public function setPrice($price)
     {
         $this->price = $price;
         return $this;
     }
 
-    public function getImg(): ?string
+    /**
+     * @return mixed
+     */
+    public function getImg()
     {
         return $this->img;
     }
 
-    public function setImg(?string $img): self
+    /**
+     * @param mixed $img
+     * @return Product
+     */
+    public function setImg($img)
     {
         $this->img = $img;
         return $this;
     }
 
-
+    /**
+     * @return mixed
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
-
-    public function setDescription($description): self
+    /**
+     * @param mixed $description
+     * @return Product
+     */
+    public function setDescription($description)
     {
         $this->description = $description;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getQuantity()
     {
         return $this->quantity;
     }
 
-
-    public function setQuantity($quantity): self
+    /**
+     * @param mixed $quantity
+     * @return Product
+     */
+    public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDiscount(): ?int
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param int $discount
+     * @return Product
+     */
+    public function setDiscount(int $discount): Product
+    {
+        $this->discount = $discount;
         return $this;
     }
 
@@ -191,4 +246,23 @@ class Product
         $this->orderProducts = $orderProducts;
         return $this;
     }
+
+    /**
+     * @return PriceHistory[]|ArrayCollection
+     */
+    public function getPriceHistories()
+    {
+        return $this->priceHistories;
+    }
+
+    /**
+     * @param PriceHistory[]|ArrayCollection $priceHistories
+     * @return Product
+     */
+    public function setPriceHistories($priceHistories)
+    {
+        $this->priceHistories = $priceHistories;
+        return $this;
+    }
+
 }

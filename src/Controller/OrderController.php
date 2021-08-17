@@ -7,14 +7,15 @@ use App\Entity\OrderProduct;
 use App\Entity\Product;
 use App\Form\Type\BasketType;
 use App\Service\EmailService;
+use App\Service\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 
 class OrderController extends AbstractController
 {
-    
-    public function addProductToOrder(Request $request, $id)
+
+    public function addProductToOrder(Request $request, $id, OrderService $service)
     {
         $uniqueId = $request->getSession()->get('orderId');
 
@@ -25,7 +26,7 @@ class OrderController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        $order = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
+        $order = $entityManager->getRepository(Order::class)->findOrderWithOrderProducts($uniqueId);
 
         if (!$order) {
             $order = new Order();
@@ -61,8 +62,8 @@ class OrderController extends AbstractController
         }
 
         $orderProduct->setAmount($orderProduct->getAmount() + 1);
-        $price = $product->getPrice();
-        $order->setTotal($order->getTotal() + $price);
+
+        $service->calculateOrderTotal($order);
 
         $entityManager->persist($order);
         $entityManager->flush();
@@ -70,7 +71,7 @@ class OrderController extends AbstractController
         return $this->redirectToRoute("productList");
     }
 
-    public function viewBasket(Request $request, EmailService $service)
+    public function viewOrder(Request $request, EmailService $service)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -110,7 +111,7 @@ class OrderController extends AbstractController
         ]);
     }
 
-    public function basketProductDelete($id, Request $request)
+    public function deleteProductFromOrder($id, Request $request, OrderService $service)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -120,16 +121,36 @@ class OrderController extends AbstractController
         /** @var Order $order */
         $order = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
 
-        $total = $orderProduct->getAmount() * $orderProduct->getProduct()->getPrice();
-        $order->setTotal($order->getTotal() - $total);
-
         $quantity = $orderProduct->getProduct()->getQuantity() + $orderProduct->getAmount();
         $orderProduct->getProduct()->setQuantity($quantity);
 
         $entityManager->remove($orderProduct);
         $entityManager->flush();
 
+        $service->calculateOrderTotal($order);
+
+        $entityManager->persist($order);
+        $entityManager->flush();
+
         return $this->redirectToRoute("basketProduct");
+    }
+
+    public function changeStatusToCompleted(int $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $order = $entityManager->getRepository(Order::class)->find($id);
+
+        if ($this->getUser() != $order->getUser() || $order->getStatus() != Order::STATUS_SENT) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $order->setStatus(Order::STATUS_COMPLETED);
+
+        $entityManager->persist($order);
+        $entityManager->flush();
+
+        return $this->redirectToRoute("orderList");
     }
 
 }

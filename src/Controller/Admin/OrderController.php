@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller\Admin;
-
 
 use App\Entity\Order;
 use App\Form\Type\OrderSentType;
@@ -14,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
-class ManagerController extends AbstractController
+class OrderController extends AbstractController
 {
     public function orderList(Request $request)
     {
@@ -60,7 +58,7 @@ class ManagerController extends AbstractController
      * если статус - canceled - статус может поменять только менеджер+ на статус basket
      */
 
-    public function statusSent(Request $request, $id)
+    public function changeStatusToSent(Request $request, $id)
     {
         $this->denyAccessUnlessGranted('ROLE_MANAGER');
 
@@ -122,7 +120,4 @@ class ManagerController extends AbstractController
 
         return $this->redirectToRoute("orderList");
     }
-
-
-
 }

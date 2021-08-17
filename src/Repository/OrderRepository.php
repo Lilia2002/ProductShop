@@ -72,5 +72,20 @@ class OrderRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findOrderWithOrderProducts($uniqueId)
+    {
+        $qb = $this->createQueryBuilder('o');  // === $qb->select('o')->from(Order::class, 'o');
+
+        $qb
+            ->addSelect('op')
+            ->leftJoin('o.orderProducts', 'op')
+
+            ->andWhere('o.uniqueId = :uniqueId')
+            ->setParameter('uniqueId', $uniqueId)
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 }
 

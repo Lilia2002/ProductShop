@@ -40,11 +40,11 @@ addProductToOrder:
 
 basketProduct:
   path:       /product/basket
-  controller: App\Controller\OrderController::viewBasket
+  controller: App\Controller\OrderController::viewOrder
 
 basketProductDelete:
   path:       /basket/product/delete/{id}
-  controller: App\Controller\OrderController::basketProductDelete
+  controller: App\Controller\OrderController::deleteProductFromOrder
 
 app_logout:
   path:    /logout
@@ -64,33 +64,33 @@ homepage:
 
 orderList:
   path:       /admin/order/list
-  controller: App\Controller\Admin\ManagerController::orderList
+  controller: App\Controller\Admin\OrderController::orderList
 
 statusSent:
   path:       /admin/order/sent/{id}
-  controller: App\Controller\Admin\ManagerController::statusSent
+  controller: App\Controller\Admin\OrderController::changeStatusToSent
 
 statusCanceled:
   path:       /admin/order/canceled/{id}
-  controller: App\Controller\Admin\ManagerController::changeOrderStatus
+  controller: App\Controller\Admin\OrderController::changeOrderStatus
   defaults:
     requiredStatus: processing
     newStatus:      canceled
 
 statusBasket:
   path:       /admin/order/basket/{id}
-  controller: App\Controller\Admin\ManagerController::changeOrderStatus
+  controller: App\Controller\Admin\OrderController::changeOrderStatus
   defaults:
     requiredStatus: canceled
     newStatus:      basket
 
 userOrderList:
   path:       /admin/user/order/list
-  controller: App\Controller\Admin\ManagerController::userOrderList
+  controller: App\Controller\Admin\OrderController::userOrderList
 
 statusCompleted:
   path:       /order/completed/{id}
-  controller: App\Controller\ManagerController::statusCompleted
+  controller: App\Controller\OrderController::changeStatusToCompleted
 
 priceDynamics:
   path:       /product/{id}/price-dynamic

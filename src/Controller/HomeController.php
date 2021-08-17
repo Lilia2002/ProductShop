@@ -22,5 +22,4 @@ class HomeController extends AbstractController
             'products' => $productRepository->findProductsLimited(),
         ]);
     }
-
 }

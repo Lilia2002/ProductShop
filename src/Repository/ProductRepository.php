@@ -20,28 +20,37 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-
-    /**
-     * @return Product[]|array
-     */
-    public function findProductsSorted(string $fieldName = 'p.name', string $direction = 'ASC'): array
-    {
-        $qb = $this->createQueryBuilder('p');
-
-        $qb
-            ->orderBy($fieldName, $direction)
-            ->leftJoin('p.category', 'c')
-        ;
-
-        return $qb->getQuery()->getResult();
-    }
-
     public function findProductsLimited(int $limit = 3)
     {
         $qb = $this->createQueryBuilder('p');
 
         $qb
             ->setMaxResults(3)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @return Product[]|array
+     */
+    public function findProductsSearch(?string $query, string $fieldName = 'p.name', string $direction = 'ASC'): array
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        if ($query) {
+            $qb
+                ->orWhere('p.name        LIKE :query')
+                ->orWhere('p.description LIKE :query')
+                ->orWhere('c.name        LIKE :query')
+
+                ->setParameter('query', '%'.$query.'%')
+            ;
+        }
+
+        $qb
+            ->leftJoin('p.category', 'c')
+            ->orderBy($fieldName, $direction)
         ;
 
         return $qb->getQuery()->getResult();
