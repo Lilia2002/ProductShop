@@ -44,5 +44,4 @@ class OrderService
         }
         $order->setTotal($orderTotal);
     }
-
 }

@@ -5,7 +5,9 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -53,5 +55,39 @@ class ProductController extends AbstractController
             'priceHistory' => $priceHistory,
             'averagePrice' => $averagePrice,
         ]);
+    }
+
+    public function completionSearchProduct(Request $request, ProductRepository  $productRepository): JsonResponse
+    {
+        $query    = $request->query->get('query');
+        $products = $productRepository->findProductsSearchLimit($query);
+
+        $searchWords = [];
+
+
+        foreach ($products as $product) {
+            $productWords = strtolower(' ' . $product->getName() . ' ' . $product->getDescription() . ' ' . $product->getCategory()->getName());
+            $matches = [];
+            preg_match_all('~ ' . $query . '[a-zA-Z]* *~',$productWords, $matches);
+
+
+            foreach ($matches[0] as $match) {
+                $match = trim($match);
+                if (strlen($match) < 3) {
+                    break;
+                }
+                $match = preg_replace('/' . $query . '/', '<strong>'.$query.'</strong>', $match, 1);
+
+                if (!in_array($match, $searchWords) ) {
+                    $searchWords[] = $match;
+                    break;
+                }
+            }
+            if (count($searchWords) == 5) {
+                break;
+            }
+        }
+
+        return $this->json($searchWords);
     }
 }

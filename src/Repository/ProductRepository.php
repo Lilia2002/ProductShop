@@ -55,5 +55,24 @@ class ProductRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findProductsSearchLimit(?string $query): array
+    {
+        $qb = $this->createQueryBuilder('p');
+
+            if ($query) {
+                $qb
+                    ->leftJoin('p.category', 'c')
+                    ->orWhere('p.name LIKE :query')
+                    ->orWhere('p.description LIKE :query')
+                    ->orWhere('c.name LIKE :query')
+                    ->setMaxResults(15)
+                    ->setParameter('query', '%'.$query.'%')
+                ;
+            }
+
+        return $qb->getQuery()->getResult();
+
+    }
 }
 

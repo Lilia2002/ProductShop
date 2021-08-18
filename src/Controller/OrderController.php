@@ -76,7 +76,7 @@ class OrderController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $uniqueId = $request->getSession()->get('orderId');
-        $order = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
+        $order    = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
 
         if (!$order) {
             $this->addFlash('danger', 'You have no order yet.');
@@ -115,7 +115,7 @@ class OrderController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $orderProduct = $entityManager->getRepository(OrderProduct::class)->find($id);
+        $orderProduct  = $entityManager->getRepository(OrderProduct::class)->find($id);
 
         $uniqueId = $request->getSession()->get('orderId');
         /** @var Order $order */
@@ -152,5 +152,4 @@ class OrderController extends AbstractController
 
         return $this->redirectToRoute("orderList");
     }
-
 }

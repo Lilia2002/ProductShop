@@ -95,3 +95,7 @@ statusCompleted:
 priceDynamics:
   path:       /product/{id}/price-dynamic
   controller: App\Controller\ProductController::showPriceDynamic
+
+search:
+  path:       /product/search
+  controller: App\Controller\ProductController::completionSearchProduct

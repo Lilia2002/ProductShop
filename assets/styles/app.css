@@ -1,9 +1,4 @@
-/*body {*/
-/*    background-color: lightgray;*/
-/*}*/
-/*body {*/
-/*    color:#000066*/
-/*}*/
+
 .container-ph {
     margin-right: 200px;
     margin-left: 200px;
@@ -69,4 +64,8 @@ img{
     background: #262626; /* Цвет фона */
     /*padding-bottom: 50px;*/
     border: 2px solid black;
+}
+#titleShop {
+    color: #351055;
+    font-size: 27px;
 }
