@@ -42,12 +42,9 @@ $(document).ready(function() {
                     if (options > '') {
                         $('.autocomplete-wrapper').html(options);
                         $('.autocomplete-wrapper').addClass('active');
-                    } else {
-
                     }
                 }
             });
-
         }
     });
 

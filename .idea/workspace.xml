@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/ProductSpecification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/nav.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -259,7 +256,7 @@
       <workItem from="1629365597182" duration="1784000" />
       <workItem from="1629367404339" duration="1802000" />
       <workItem from="1629369312106" duration="1788000" />
-      <workItem from="1629371121396" duration="576000" />
+      <workItem from="1629371121396" duration="990000" />
     </task>
     <task id="LOCAL-00001" summary="idea directory added to gitignore">
       <created>1628229616794</created>
@@ -359,7 +356,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629285468666</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="autocomplete search">
+      <created>1629371744213</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1629371744213</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,7 +393,8 @@
     <MESSAGE value="validator registers" />
     <MESSAGE value="separation of the client and admin area" />
     <MESSAGE value="implementation of the method in the controller for the search autocomplete block" />
-    <option name="LAST_COMMIT_MESSAGE" value="implementation of the method in the controller for the search autocomplete block" />
+    <MESSAGE value="autocomplete search" />
+    <option name="LAST_COMMIT_MESSAGE" value="autocomplete search" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

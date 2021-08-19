@@ -69,3 +69,28 @@ img{
     color: #351055;
     font-size: 27px;
 }
+
+.block-search {
+    position: relative;
+}
+.autocomplete-wrapper {
+    position: absolute;
+    top: 43px;
+    width: 262px;
+    outline: 2px solid #8e8e8e;
+    background: #fff;
+    border-radius: 5px;
+    display: none;
+    box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.2);
+}
+.autocomplete-wrapper.active {
+    display: block;
+}
+.autocomplete-wrapper div {
+    cursor: pointer;
+    padding: .375rem .75rem;
+}
+.autocomplete-wrapper div:hover {
+    color: #fff; /* Цвет текста активного пункта */
+    background-color: #878484; /* Цвет фона активного пункта */
+}
