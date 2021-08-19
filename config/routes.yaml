@@ -97,5 +97,5 @@ priceDynamics:
   controller: App\Controller\ProductController::showPriceDynamic
 
 search:
-  path:       /product/search
+  path:       /product/autocomplete
   controller: App\Controller\ProductController::completionSearchProduct

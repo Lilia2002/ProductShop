@@ -5,18 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f35af50e-5d66-43c1-98e7-06209db55614" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Entity/ProductSpecification.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/OrderService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/OrderService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/nav.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/nav.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/homepage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,7 +250,16 @@
       <workItem from="1628741261756" duration="22160000" />
       <workItem from="1629085017096" duration="29939000" />
       <workItem from="1629171498746" duration="27285000" />
-      <workItem from="1629258049746" duration="24940000" />
+      <workItem from="1629258049746" duration="25251000" />
+      <workItem from="1629346040269" duration="11427000" />
+      <workItem from="1629358262828" duration="1784000" />
+      <workItem from="1629360071954" duration="1833000" />
+      <workItem from="1629361926620" duration="1791000" />
+      <workItem from="1629363738867" duration="1823000" />
+      <workItem from="1629365597182" duration="1784000" />
+      <workItem from="1629367404339" duration="1802000" />
+      <workItem from="1629369312106" duration="1788000" />
+      <workItem from="1629371121396" duration="576000" />
     </task>
     <task id="LOCAL-00001" summary="idea directory added to gitignore">
       <created>1628229616794</created>
@@ -349,7 +352,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629110949026</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="implementation of the method in the controller for the search autocomplete block">
+      <created>1629285468666</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1629285468666</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,7 +388,8 @@
     <MESSAGE value="item price history statistics" />
     <MESSAGE value="validator registers" />
     <MESSAGE value="separation of the client and admin area" />
-    <option name="LAST_COMMIT_MESSAGE" value="separation of the client and admin area" />
+    <MESSAGE value="implementation of the method in the controller for the search autocomplete block" />
+    <option name="LAST_COMMIT_MESSAGE" value="implementation of the method in the controller for the search autocomplete block" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -13,13 +13,56 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
-$(document).ready(function(){
+$(document).ready(function() {
 
-    $( "#siteSearchSubmit" ).on('click', function(e) {
+    $("#siteSearchSubmit").on('click', function(e) {
         e.preventDefault();
 
         let query = $('#siteSearchInput').val();
         document.location.href = '/product/list?query=' + query;
     });
 
+    $("#siteSearchInput").on('keyup', function(e) {
+
+        let query = this.value;
+        let options = '';
+
+
+        if (query.length > 2) {
+            $.ajax({
+                type: "GET",
+                url: "/product/autocomplete",
+                data: {
+                    query: query
+                },
+                success: function(response) {
+                    $(response).each(function () {
+                        options += '<div>' + this + '</div>';
+                    });
+                    if (options > '') {
+                        $('.autocomplete-wrapper').html(options);
+                        $('.autocomplete-wrapper').addClass('active');
+                    } else {
+
+                    }
+                }
+            });
+
+        }
+    });
+
+    $(document).on('click', '.autocomplete-wrapper div', function (e) {
+        $('#siteSearchInput').val(this.innerText);
+        document.location.href = '/product/list?query=' + this.innerText;
+        this.style.backgroundColor = "#524f4f";
+    });
+
+
+    $(document).on('blur', '#siteSearchInput', function (e) {
+        setTimeout(function () {
+            $('.autocomplete-wrapper').removeClass('active');
+        }, 150)
+    });
 });
+
+
