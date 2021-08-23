@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {{ form_start(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+
+        {{ form_label(form.productSpecifications) }}
+        <ul class="list-group productSpecifications" data-prototype = "{{ form_widget(form.productSpecifications.vars.prototype)|e('html_attr') }}">
+            <button type="button" class="add_item_link" data-collection-holder-class="productSpecifications">Add a specification</button>
+            {% for productSpecification in form.productSpecifications %}
+                <li class="list-group-item">
+                    {{ form_row(productSpecification.name) }}
+                    {{ form_row(productSpecification.value) }}</li>
+            {% endfor %}
+        </ul>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

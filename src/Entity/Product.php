@@ -6,6 +6,7 @@ use App\EventListener\ProductEventListener;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -80,9 +81,18 @@ class Product
      */
     private $priceHistories;
 
+    /**
+     * @var ProductSpecification[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductSpecification", mappedBy="product", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $productSpecifications;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
+        $this->priceHistories = new ArrayCollection();
+        $this->productSpecifications = new ArrayCollection();
     }
 
     /**
@@ -265,4 +275,32 @@ class Product
         return $this;
     }
 
+    /**
+     * @return ProductSpecification[]|ArrayCollection
+     */
+    public function getProductSpecifications()
+    {
+        return $this->productSpecifications;
+    }
+
+    /**
+     * @param ProductSpecification[]|ArrayCollection $productSpecifications
+     * @return Product
+     */
+    public function setProductSpecifications($productSpecifications)
+    {
+        $this->productSpecifications = $productSpecifications;
+        return $this;
+    }
+
+    public function addProductSpecification(ProductSpecification $productSpecification): void
+    {
+        $productSpecification->setProduct($this);
+        $this->productSpecifications->add($productSpecification);
+    }
+
+    public function removeProductSpecification(ProductSpecification $productSpecification): void
+    {
+        $this->productSpecifications->removeElement($productSpecification);
+    }
 }

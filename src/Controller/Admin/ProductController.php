@@ -48,6 +48,7 @@ class ProductController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             /** @var UploadedFile $image */
             $image = $form->get('image')->getData();
 
@@ -63,7 +64,7 @@ class ProductController extends AbstractController
             return $this->redirectToRoute("productList");
         }
 
-        return $this->render('product/form.html.twig', [
+        return $this->render('product/editForm.html.twig', [
             'product' => $product,
             'form'    => $form->createView(),
         ]);
@@ -80,6 +81,5 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute("productList");
-
     }
 }

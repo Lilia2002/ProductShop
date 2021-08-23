@@ -4,16 +4,17 @@
 namespace App\Form\Type;
 
 use App\Entity\Category;
-use App\Entity\Order;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 class ProductType extends AbstractType
@@ -43,7 +44,21 @@ class ProductType extends AbstractType
                     return $category->getName();
                 }
             ])
+            ->add('productSpecifications', CollectionType::class, [
+                'entry_type'    => ProductSpecificationType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+            ])
             ->add('save', SubmitType::class, ['label' => 'Save'])
-        ;
+            ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Product::class,
+        ]);
     }
 }

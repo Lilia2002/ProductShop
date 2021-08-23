@@ -48,7 +48,7 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('click', '.autocomplete-wrapper div', function (e) {
+$(document).on('click', '.autocomplete-wrapper div', function (e) {
         $('#siteSearchInput').val(this.innerText);
         document.location.href = '/product/list?query=' + this.innerText;
         this.style.backgroundColor = "#524f4f";
@@ -62,4 +62,51 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+
+    var $productSpecificationsCollectionHolder = $('ul.productSpecifications');
+
+    $productSpecificationsCollectionHolder.data('index', $productSpecificationsCollectionHolder.find('input').length);
+
+    $('body').on('click', '.add_item_link', function(e) {
+        var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+
+        addFormToCollection($collectionHolderClass);
+    });
+    $productSpecificationsCollectionHolder.find('li').each(function() {
+        addProductSpecificationFormDeleteLink($(this));
+    });
+});
+
+function addFormToCollection($collectionHolderClass) {
+
+    var $collectionHolder = $('.' + $collectionHolderClass);
+
+    var prototype = $collectionHolder.data('prototype');
+
+    var index = $collectionHolder.data('index');
+
+    var newForm = prototype;
+
+    newForm = newForm.replace(/__name__/g, index);
+
+
+    $collectionHolder.data('index', index + 1);
+
+
+    var $newFormLi = $('<li class="list-group-item"></li>').append(newForm);
+
+    $collectionHolder.append($newFormLi);
+    addProductSpecificationFormDeleteLink($newFormLi);
+}
+
+function addProductSpecificationFormDeleteLink($productSpecificationFormLi) {
+    var $removeFormButton = $('<button type="button">Delete this specification</button>');
+    $productSpecificationFormLi.append($removeFormButton);
+
+    $removeFormButton.on('click', function(e) {
+
+        $productSpecificationFormLi.remove();
+    });
+}
 
