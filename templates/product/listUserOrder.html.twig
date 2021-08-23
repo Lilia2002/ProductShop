@@ -38,7 +38,7 @@
                         <td><p class="hidden-text">{{ sum }}</p></td>
                         <td><p class="hidden-text">{{ order.updatedAt|date('Y-m-d H:i:s') }}</p></td>
                         <td><p class="hidden-text">{{ order.total }}</p></td>
-                        <td><p class="hidden-text">{{ order.status|statusToBadgeClass }}</p></td>
+                        <td><span class="badge badge-pill {{ order.status|statusToBadgeClass }}">{{ order.status }}</span></td>
                         <td class="float-right actions">
                             {% if order.status == 'sent'%}
                                 <a href="{{ path('statusCompleted', {

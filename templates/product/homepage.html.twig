@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
-
     <div class="container-fluid">
         <div class="row">
             <div class="main-banner">
@@ -15,8 +13,8 @@
                                 {% if ('http' in product.img) == false %}
                                 <a class="d-block text-center text-decoration-none me-1" href=""><img src="{{ '/uploads/product/' ~ product.img }}" height="230px" width="150px" class="shadow-sm" alt="Men"></a>
                                     {% else %}
-                                        <a class="d-block text-center text-decoration-none me-1" href=""><img src="{{ '/uploads/product/' ~ product.img }}" height="230px" width="150px" class="shadow-sm" alt="Men"></a>
-                                        {% endif %}
+                                <a class="d-block text-center text-decoration-none me-1" href=""><img src="{{ '/uploads/product/' ~ product.img }}" height="230px" width="150px" class="shadow-sm" alt="Men"></a>
+                                {% endif %}
                                 <h2 class="display-8">{{ product.name }}</h2></div>
 {#                                <h2 class="display-8">{{ product.price/100 }} $</h2></div>#}
                             {% endfor %}

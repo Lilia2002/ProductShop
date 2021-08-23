@@ -39,7 +39,9 @@
                     {% for product in products %}
                         <tr>
                             <th scope="row">{{ loop.index }}</th>
-                            <td><p class="hidden-text">{{ product.name }}</p></td>
+                            <td><a href="{{ path('product', {
+                                 'id': product.id
+                            }) }}">{{ product.name }}</a></td>
                             <td><p class="hidden-text">{{ product.description }}</p></td>
                             <td>{{ product.price/100 }} $</td>
                             <td>{% if product.category %}

@@ -120,4 +120,22 @@ class OrderController extends AbstractController
 
         return $this->redirectToRoute("orderList");
     }
+
+    public function totalSumForUsers(Request $request)
+    {
+        $this->denyAccessUnlessGranted('ROLE_MANAGER');
+
+        $entityManager   = $this->getDoctrine()->getManager();
+
+        $totals =  $entityManager->getRepository(Order::class)->sumTotalOrderProducts();
+
+        $uniqueId  = $request->getSession()->get('orderId');
+        $order     = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
+
+        return $this->render('product/listOrderTotal.html.twig', [
+            'totals'          => $totals,
+            'order'           => $order,
+        ]);
+
+    }
 }

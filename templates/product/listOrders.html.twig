@@ -1,9 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        #statistics {
+            margin-top: 84px;
+            margin-left: 820px;
+            height: 40px;
+        }
+    </style>
     <div class="container">
+
         <div class="row">
             {{ form(form) }}
+            <a href="{{ path( 'orderListStatistics' )}}" class ="btn btn-outline-success" id="statistics" type="submit"> Statistics for each user </a>
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>

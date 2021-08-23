@@ -88,11 +88,19 @@ class Product
      */
     protected $productSpecifications;
 
+    /**
+     * @var Review[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="product")
+     */
+    private $reviews;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
         $this->priceHistories = new ArrayCollection();
         $this->productSpecifications = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     /**
@@ -110,6 +118,24 @@ class Product
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return Review[]|ArrayCollection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * @param Review[]|ArrayCollection $reviews
+     * @return Product
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
         return $this;
     }
 

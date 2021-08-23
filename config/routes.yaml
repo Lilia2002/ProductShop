@@ -99,3 +99,11 @@ priceDynamics:
 search:
   path:       /product/autocomplete
   controller: App\Controller\ProductController::completionSearchProduct
+
+orderListStatistics:
+  path:       /admin/order/list/statistics
+  controller: App\Controller\Admin\OrderController::totalSumForUsers
+
+product:
+  path:       /product/{id}
+  controller: App\Controller\ProductController::product

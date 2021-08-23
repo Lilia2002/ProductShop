@@ -4,11 +4,11 @@ namespace App\Controller;
 
 
 use App\Entity\Order;
+use App\Entity\OrderProduct;
 use App\Entity\Product;
-use App\Entity\ProductSpecification;
-use App\Form\Type\ProductSpecificationType;
+use App\Entity\Review;
+use App\Form\Type\ReviewType;
 use App\Repository\ProductRepository;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,5 +92,41 @@ class ProductController extends AbstractController
         }
 
         return $this->json($searchWords);
+    }
+
+    public function product(Request $request, $id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        $review  = $entityManager->getRepository(Review::class)->findOneBy([
+            'product' => $product,
+            'user'    => $this->getUser(),
+        ]);
+
+        if (!$review) {
+            $review = new Review();
+            $form   = $this->createForm(ReviewType::class, $review);
+
+            $review->setProduct($product);
+            $review->setUser($this->getUser());
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $entityManager->persist($review);
+                $entityManager->flush();
+            }
+
+            return $this->render('product/productView.html.twig', [
+                'product' => $product,
+                'form'    => $form->createView(),
+            ]);
+        }
+
+        return $this->render('product/productView.html.twig', [
+            'product' => $product,
+        ]);
     }
 }

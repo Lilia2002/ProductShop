@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Order;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -86,6 +87,19 @@ class OrderRepository extends ServiceEntityRepository
         ;
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function sumTotalOrderProducts()
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb
+            ->select('SUM(o.total) as total, ou.email')
+            ->leftJoin('o.user', 'ou')
+            ->groupBy('ou.email')
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }
 

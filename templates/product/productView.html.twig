@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="row align-items-center py-1 py-lg-5">
+            <div class=""><img class="d-block rounded-3" src="{{ '/uploads/product/' ~ product.img }}" alt=""></div>
+            <div class="col-lg-5 col-md-6 offset-lg-1 py-6">
+                <h3 class="fs-base mb-6">{{ product.name }}</h3>
+                <p class="fs-sm text-muted pb-md-2">{{ product.price/100 }} $</p>
+                <h6 class="fs-base mb-6">Category</h6>
+                <p class="fs-sm text-muted pb-md-2">{{ product.category.name }}</p>
+                <h6 class="fs-base mb-6">Description</h6>
+                <p class="fs-sm text-muted pb-md-2">{{ product.description }}</p>
+                <div class="d-flex mb-1">
+                    <a href="{{ path('addProductToOrder', {
+                        'id': product.id
+                    }) }}" class="btn btn-dark">Add</a>
+                </div>
+            </div>
+        </div>
+        {% if form is defined %}
+        <div class="">
+            <h5>Leave your review:</h5>
+            {{ form(form) }}
+        </div>
+        {% endif %}
+        <div>
+            <h5>Reviews</h5>
+        {% for review in product.reviews %}
+                <div>
+                    {{ review.rating }}
+                    {{ review.user.username }}
+                    {{ review.review }}
+                </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
