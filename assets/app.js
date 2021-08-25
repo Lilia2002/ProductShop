@@ -48,7 +48,7 @@ $(document).ready(function() {
         }
     });
 
-$(document).on('click', '.autocomplete-wrapper div', function (e) {
+    $(document).on('click', '.autocomplete-wrapper div', function (e) {
         $('#siteSearchInput').val(this.innerText);
         document.location.href = '/product/list?query=' + this.innerText;
         this.style.backgroundColor = "#524f4f";
@@ -109,4 +109,25 @@ function addProductSpecificationFormDeleteLink($productSpecificationFormLi) {
         $productSpecificationFormLi.remove();
     });
 }
+
+$(document).on('click', '.rating-selector i', function (e) {
+    let rating = $(this).data('rating');
+
+    $('.rating-selector i').each(function () {
+        if ($(this).data('rating') > rating) {
+            $(this).attr('class', 'bi bi-star');
+        } else {
+            $(this).attr('class', 'bi bi-star-fill');
+        }
+    });
+
+    $('#review_rating').val(rating);
+
+});
+
+
+
+
+
+
 

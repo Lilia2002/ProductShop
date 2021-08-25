@@ -4,12 +4,13 @@ namespace App\Controller;
 
 
 use App\Entity\Order;
-use App\Entity\OrderProduct;
 use App\Entity\Product;
 use App\Entity\Review;
+use App\Event\AddReviewOrChangeRatingEvent;
 use App\Form\Type\ReviewType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -94,7 +95,7 @@ class ProductController extends AbstractController
         return $this->json($searchWords);
     }
 
-    public function product(Request $request, $id)
+    public function product(Request $request, $id, EventDispatcherInterface $dispatcher)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -105,7 +106,9 @@ class ProductController extends AbstractController
             'user'    => $this->getUser(),
         ]);
 
-        if (!$review) {
+        $orders = $entityManager->getRepository(Order::class)->findOrdersOnUserAndProduct($product, $this->getUser(), Order::STATUS_COMPLETED);
+
+        if (!$review && $orders) {
             $review = new Review();
             $form   = $this->createForm(ReviewType::class, $review);
 
@@ -117,6 +120,11 @@ class ProductController extends AbstractController
 
                 $entityManager->persist($review);
                 $entityManager->flush();
+                $dispatcher->dispatch(new AddReviewOrChangeRatingEvent($product), AddReviewOrChangeRatingEvent::NAME);
+
+                return $this->redirectToRoute("product", [
+                    'id' => $product->getId(),
+                ]);
             }
 
             return $this->render('product/productView.html.twig', [

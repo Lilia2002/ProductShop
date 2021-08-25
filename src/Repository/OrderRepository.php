@@ -5,6 +5,7 @@ namespace App\Repository;
 
 
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
@@ -98,6 +99,35 @@ class OrderRepository extends ServiceEntityRepository
             ->leftJoin('o.user', 'ou')
             ->groupBy('ou.email')
         ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findOrdersOnUserAndProduct(Product $product, ?User $user = null, ?string $status = null)
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        $qb
+            ->addSelect('op')
+            ->leftJoin('o.orderProducts', 'op')
+            ->leftJoin('o.user', 'ou')
+
+            ->andWhere('op.product = :product')
+            ->setParameter('product', $product)
+        ;
+
+            if ($user) {
+                $qb
+                    ->andWhere('o.user = :user')
+                    ->setParameter('user', $user);
+            }
+
+        if ($status) {
+            $qb
+                ->andWhere('o.status = :status')
+                ->setParameter('status', $status)
+            ;
+        }
 
         return $qb->getQuery()->getResult();
     }

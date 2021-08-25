@@ -6,7 +6,6 @@ use App\EventListener\ProductEventListener;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -33,6 +32,11 @@ class Product
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=4, nullable=true)
+     */
+    private $rating;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -118,6 +122,24 @@ class Product
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     * @return Product
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
         return $this;
     }
 

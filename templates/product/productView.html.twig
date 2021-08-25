@@ -7,6 +7,14 @@
             <div class=""><img class="d-block rounded-3" src="{{ '/uploads/product/' ~ product.img }}" alt=""></div>
             <div class="col-lg-5 col-md-6 offset-lg-1 py-6">
                 <h3 class="fs-base mb-6">{{ product.name }}</h3>
+                <div class="star-rating">
+                    <i class="bi bi-star{% if product.rating >= 1 %}-fill{% endif %}"></i>
+                    <i class="bi bi-star{% if product.rating >= 2 %}-fill{% endif %}"></i>
+                    <i class="bi bi-star{% if product.rating >= 3 %}-fill{% endif %}"></i>
+                    <i class="bi bi-star{% if product.rating >= 4 %}-fill{% endif %}"></i>
+                    <i class="bi bi-star{% if product.rating >= 5 %}-fill{% endif %}"></i>
+                    / {{ product.rating }}
+                </div>
                 <p class="fs-sm text-muted pb-md-2">{{ product.price/100 }} $</p>
                 <h6 class="fs-base mb-6">Category</h6>
                 <p class="fs-sm text-muted pb-md-2">{{ product.category.name }}</p>
@@ -19,21 +27,37 @@
                 </div>
             </div>
         </div>
-        {% if form is defined %}
-        <div class="">
-            <h5>Leave your review:</h5>
-            {{ form(form) }}
-        </div>
-        {% endif %}
+
         <div>
-            <h5>Reviews</h5>
+            <h5>REVIEWS</h5>
         {% for review in product.reviews %}
-                <div>
-                    {{ review.rating }}
-                    {{ review.user.username }}
+                <div class="review">
+                    <div>{{ review.user.username }}</div>
+                    <div class="star-rating">
+                        <i class="bi bi-star{% if review.rating >= 1 %}-fill{% endif %}"></i>
+                        <i class="bi bi-star{% if review.rating >= 2 %}-fill{% endif %}"></i>
+                        <i class="bi bi-star{% if review.rating >= 3 %}-fill{% endif %}"></i>
+                        <i class="bi bi-star{% if review.rating >= 4 %}-fill{% endif %}"></i>
+                        <i class="bi bi-star{% if review.rating >= 5 %}-fill{% endif %}"></i>
+                    </div>
                     {{ review.review }}
                 </div>
         {% endfor %}
+        </div>
+        <div class="formReview">
+        {% if form is defined %}
+            <div>
+                <h5>LEAVE YOUR REVIEW:</h5>
+                <div class="star-rating rating-selector">
+                    <i class="bi bi-star" data-rating="1" ></i>
+                    <i class="bi bi-star" data-rating="2"></i>
+                    <i class="bi bi-star" data-rating="3"></i>
+                    <i class="bi bi-star" data-rating="4"></i>
+                    <i class="bi bi-star" data-rating="5"></i>
+                </div>
+                {{ form(form) }}
+            </div>
+        {% endif %}
         </div>
     </div>
 </div>

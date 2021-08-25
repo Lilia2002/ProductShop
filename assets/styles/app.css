@@ -94,3 +94,15 @@ img{
     color: #fff; /* Цвет текста активного пункта */
     background-color: #878484; /* Цвет фона активного пункта */
 }
+.review {
+    width:500px;
+    border-top:1px solid #9EC1D4;
+    border-bottom: dotted 1px #9EC1D4;
+    padding-left:10px
+}
+.formReview {
+    margin-left: 120px;
+}
+.star-rating i{
+    color: darkorange;
+}

@@ -1,12 +1,7 @@
 App\Entity\User:
-
     constraints:
         -  Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
-
     properties:
-        productSpecifications:
-            - Valid: ~
-
         username:
             - Length:
                   min: 3

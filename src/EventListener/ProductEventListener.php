@@ -3,7 +3,6 @@
 
 namespace App\EventListener;
 
-
 use App\Entity\PriceHistory;
 use App\Entity\Product;
 use Doctrine\ORM\Event\LifecycleEventArgs;
