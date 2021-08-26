@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="main-banner">
+                <h1 class="display-1">DEVICE SHOP</h1>
+                <div class="container">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body px-3 pt-grid-gutter pb-0">
+                            <div class="row g-0 ps-1">
+                                {% for category in categories %}
+                                    <div class="col-sm">
+                                        <a class="d-block text-center text-decoration-none me-1" href="">
+                                            <img src="{{ category|categoryImage }}"  height="230px" width="150px" class="shadow-sm" alt="Men">
+                                        </a>
+                                        <h2 class="display-8">{{ category.name|upper }}</h2></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="display-3">СКИДКА 20% НА ВСЮ ТЕХНИКУ APPLE</h3>
+            </div>
+        </div>
+    </div>
+            <style>
+
+            </style>
+        <div class="container">
+            <div class="row">
+            {% for product in products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 px-2 mb-4">
+                    <div class="card-products product-card">
+                        {% if ('http' in product.img) == false %}
+                            <a href="{{ path('product', {
+                                'id': product.id
+                            }) }}"><img src="{{ '/uploads/product/' ~ product.img }}" height="200px" width="50px" alt="Product"></a>
+                        {% else %}
+                            <a href="{{ path('product', {
+                                'id': product.id
+                            }) }}"><img src="{{ product.img }}" height="230px" width="150px" alt="Product"></a>
+                        {% endif %}
+                        <div class="card-body py-2"><a class="category" href="{{ path('product', {
+                                'id': product.id
+                            }) }}">{{ product.category.name }}</a>
+                            <div class="d-flex justify-content-between">
+                                <div class="product-price">{{ product.price/100 }} $</div>
+                                <div class="star-rating">
+                                    <i class="bi bi-star{% if product.rating >= 1 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 2 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 3 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 4 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 5 %}-fill{% endif %}"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body card-body-hidden">
+                            <a class="btn btn-primary btn-sm d-block w-100 mb-2" type="button" href="{{  path('addProductToOrder', {
+                                'id': product.id
+                            }) }}">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}

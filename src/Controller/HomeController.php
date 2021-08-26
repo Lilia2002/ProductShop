@@ -7,6 +7,8 @@ use App\Entity\Category;
 use App\Entity\Order;
 use App\Entity\Product;
 use App\Form\Type\CategoryType;
+use App\Repository\CategoryRepository;
+use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +18,11 @@ use App\Form\Type\ProductType;
 
 class HomeController extends AbstractController
 {
-    public function homepage(ProductRepository $productRepository)
+    public function homepage(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
-        return $this->render('product/homepage.html.twig', [
-            'products' => $productRepository->findProductsLimited(),
+        return $this->render('homepage/homepage.html.twig', [
+            'categories' => $categoryRepository->findCategoriesLimited(),
+            'products'   => $productRepository->findProductsLimited(),
         ]);
     }
 }

@@ -105,7 +105,7 @@ class OrderController extends AbstractController
             $service->sendOrderStatusChangedEmail('liliya.p@zimalab.com', 'processing');
         }
 
-        return $this->render('product/listBasket.html.twig', [
+        return $this->render('order/listBasket.html.twig', [
             'order' => $order,
             'form'  => $form->createView(),
         ]);

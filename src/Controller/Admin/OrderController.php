@@ -30,7 +30,7 @@ class OrderController extends AbstractController
 
         $orders = $entityManager->getRepository(Order::class)->findOrdersSorted($fieldName, $direction, $status);
 
-        return $this->render('product/listOrders.html.twig', [
+        return $this->render('order/listOrders.html.twig', [
             'orders' => $orders,
             'form' => $form->createView(),
         ]);
@@ -41,7 +41,7 @@ class OrderController extends AbstractController
      */
     public function userOrderList(Request $request, OrderRepository $orderRepo)
     {
-        return $this->render('product/listUserOrder.html.twig', [
+        return $this->render('order/listUserOrder.html.twig', [
             'orders' => $orderRepo->findUserOrdersSorted(
                 $request->query->get('fieldName', 'o.status'),
                 $request->query->get('direction', 'ASC'),
@@ -132,7 +132,7 @@ class OrderController extends AbstractController
         $uniqueId  = $request->getSession()->get('orderId');
         $order     = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
 
-        return $this->render('product/listOrderTotal.html.twig', [
+        return $this->render('order/listOrderTotal.html.twig', [
             'totals'          => $totals,
             'order'           => $order,
         ]);

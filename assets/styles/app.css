@@ -106,3 +106,17 @@ img{
 .star-rating i{
     color: darkorange;
 }
+.category {
+    color: #7f7d7d;
+}
+.card-products {
+    width: 300px;
+    padding: 10px;
+}
+.product-card {
+    margin-left: auto;
+    margin-right: auto;
+}
+.col-lg-3 {
+    margin-block: 20px;
+}

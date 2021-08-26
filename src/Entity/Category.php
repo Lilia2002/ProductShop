@@ -25,6 +25,11 @@ class Category
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $img;
+
+    /**
      * @var Product[]|ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
@@ -39,6 +44,24 @@ class Category
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param mixed $img
+     * @return Category
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+        return $this;
     }
 
     public function getName(): ?string

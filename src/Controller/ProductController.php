@@ -68,7 +68,6 @@ class ProductController extends AbstractController
 
         $searchWords = [];
 
-
         foreach ($products as $product) {
             $productWords = strtolower(' ' . $product->getName() . ' ' . $product->getDescription() . ' ' . $product->getCategory()->getName());
             $matches = [];

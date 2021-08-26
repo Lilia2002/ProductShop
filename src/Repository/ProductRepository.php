@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Order;
+use App\Entity\Category;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,12 +20,12 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findProductsLimited(int $limit = 3)
+    public function findProductsLimited(int $limit = 8)
     {
         $qb = $this->createQueryBuilder('p');
 
         $qb
-            ->setMaxResults(3)
+            ->setMaxResults(8)
         ;
 
         return $qb->getQuery()->getResult();
@@ -72,6 +72,23 @@ class ProductRepository extends ServiceEntityRepository
             }
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findMaxProductRating(Category $category)
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->select('p.img')
+            ->andWhere('p.category = :category')
+            ->setParameter('category', $category)
+            ->andWhere('p.img IS NOT NULL')
+
+            ->orderBy('p.rating', 'DESC')
+            ->setMaxResults(1)
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }
 

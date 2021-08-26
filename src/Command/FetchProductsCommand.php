@@ -39,9 +39,6 @@ class FetchProductsCommand extends Command
         parent::__construct();
     }
 
-    // создать команду для создания пользователя с возможностью выбора роли, и всех остальных полей пользователя
-    // создать команду для изменения ролей пользователя
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $response = $this->httpClient->request('GET', 'https://fakestoreapi.com/products');

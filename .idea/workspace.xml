@@ -2,19 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7111acb-e597-45d6-a870-67096c1fa085" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Event/AddReviewOrChangeRatingEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventListener/ProductEventSubscriber.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/validator/validation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/validator/validation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/FetchProductsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/FetchProductsCommand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventListener/ProductEventListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventListener/ProductEventListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/Type/RegistersType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/Type/RegistersType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/Type/ReviewType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/Type/ReviewType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/OrderRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/OrderRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/productView.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/productView.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Twig/AppExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage/homepage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/listBasket.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listBasket.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/listOrderTotal.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listOrderTotal.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/listOrders.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listOrders.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/listUserOrder.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listUserOrder.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +192,12 @@
     <property name="settings.editor.selected.configurable" value="Symfony2.SettingsForm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/order" />
+      <recent name="$PROJECT_DIR$/templates/homepage" />
+    </key>
+  </component>
   <component name="RunManager" selected="JavaScript Debug.ProductController.php">
     <configuration name="ProductController.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/symfony_project/Controller/Admin/ProductController.php" useBuiltInWebServerPort="true">
       <method v="2" />
@@ -214,7 +224,8 @@
       <workItem from="1629429843479" duration="25171000" />
       <workItem from="1629689871254" duration="26359000" />
       <workItem from="1629777686578" duration="27200000" />
-      <workItem from="1629863799251" duration="6874000" />
+      <workItem from="1629863799251" duration="25103000" />
+      <workItem from="1629949410615" duration="384000" />
     </task>
     <task id="LOCAL-00001" summary="Collection Product specifications">
       <created>1629691521434</created>
@@ -223,7 +234,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629691521434</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="adding reviews">
+      <created>1629870841095</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1629870841095</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,7 +249,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Collection Product specifications" />
-    <option name="LAST_COMMIT_MESSAGE" value="Collection Product specifications" />
+    <MESSAGE value="adding reviews" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding reviews" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
