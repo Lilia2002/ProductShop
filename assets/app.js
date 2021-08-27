@@ -125,6 +125,23 @@ $(document).on('click', '.rating-selector i', function (e) {
 
 });
 
+$(document).ready(function(){
+
+    $('.form-select').change(function(){
+        document.location.href = $(this).val();
+    });
+
+    $(function() {
+        if (localStorage.getItem('form_frame')) {
+            $("#form_frame option").eq(localStorage.getItem('form_frame')).prop('selected', true);
+        }
+
+        $("#form_frame").on('change', function() {
+            localStorage.setItem('form_frame', $('option:selected', this).index());
+        });
+    });
+});
+
 
 
 

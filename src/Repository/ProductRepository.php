@@ -20,17 +20,6 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findProductsLimited(int $limit = 8)
-    {
-        $qb = $this->createQueryBuilder('p');
-
-        $qb
-            ->setMaxResults(8)
-        ;
-
-        return $qb->getQuery()->getResult();
-    }
-
     /**
      * @return Product[]|array
      */
@@ -89,6 +78,21 @@ class ProductRepository extends ServiceEntityRepository
         ;
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findProductRating()
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb
+            ->select('p')
+            ->andWhere('p.img IS NOT NULL')
+
+            ->orderBy('p.rating', 'DESC')
+            ->setMaxResults(6)
+        ;
+
+        return $qb->getQuery()->getResult();
     }
 }
 

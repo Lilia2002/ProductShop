@@ -9,26 +9,35 @@ use App\Entity\Review;
 use App\Event\AddReviewOrChangeRatingEvent;
 use App\Form\Type\ReviewType;
 use App\Repository\ProductRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-
 class ProductController extends AbstractController
 {
-    public function productList(Request $request)
+    public function productList(Request $request, PaginatorInterface $paginator)
     {
         $entityManager   = $this->getDoctrine()->getManager();
 
         $fieldName = $request->query->get('fieldName', 'p.name');
         $direction = $request->query->get('direction', 'ASC');
         $query     = $request->query->get('query');
+        $page = $request->query->get('page');
 
         $products  = $entityManager->getRepository(Product::class)->findProductsSearch($query, $fieldName, $direction);
 
         $uniqueId  = $request->getSession()->get('orderId');
         $order     = $entityManager->getRepository(Order::class)->findOneBy(['uniqueId' => $uniqueId]);
+
+
+
+        $products  = $paginator->paginate(
+            $products,
+            $request->query->getInt('page', 1),
+            6
+        );
 
         return $this->render('product/list.html.twig', [
             'products'       => $products,

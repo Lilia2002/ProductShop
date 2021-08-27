@@ -82,6 +82,7 @@ img{
     border-radius: 5px;
     display: none;
     box-shadow: 0px 0px 6px 6px rgba(120, 120, 120, 0.2);
+    z-index: 9998!important;
 }
 .autocomplete-wrapper.active {
     display: block;
@@ -119,4 +120,17 @@ img{
 }
 .col-lg-3 {
     margin-block: 20px;
+}
+.category-list {
+    width: 900px;
+    margin-left: 50px;
+}
+.navigation {
+    margin-left: 420px;
+}
+.sort {
+    margin-top: 20px;
+}
+.productName {
+    color: #020202;
 }

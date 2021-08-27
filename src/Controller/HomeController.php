@@ -22,7 +22,7 @@ class HomeController extends AbstractController
     {
         return $this->render('homepage/homepage.html.twig', [
             'categories' => $categoryRepository->findCategoriesLimited(),
-            'products'   => $productRepository->findProductsLimited(),
+            'products'   => $productRepository->findProductRating(),
         ]);
     }
 }

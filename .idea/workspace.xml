@@ -2,23 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7111acb-e597-45d6-a870-67096c1fa085" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/paginator.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/symfony_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/symfony_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Command/FetchProductsCommand.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Command/FetchProductsCommand.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Category.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/ProductRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ProductRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/AppExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/AppExtension.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage/homepage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/listBasket.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listBasket.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/listOrderTotal.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listOrderTotal.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/listOrders.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listOrders.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/listUserOrder.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/order/listUserOrder.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/homepage/homepage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/homepage/homepage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/list.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,6 +173,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
     </include_path>
   </component>
   <component name="ProjectId" id="1wwiw2OQ20F4n0WZU3g01VqURjv" />
@@ -225,7 +225,8 @@
       <workItem from="1629689871254" duration="26359000" />
       <workItem from="1629777686578" duration="27200000" />
       <workItem from="1629863799251" duration="25103000" />
-      <workItem from="1629949410615" duration="384000" />
+      <workItem from="1629949410615" duration="20186000" />
+      <workItem from="1630040264032" duration="7041000" />
     </task>
     <task id="LOCAL-00001" summary="Collection Product specifications">
       <created>1629691521434</created>
@@ -241,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1629870841095</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Product list on the home page. Top Rated Product Image Categories.">
+      <created>1629950073400</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1629950073400</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +258,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Collection Product specifications" />
     <MESSAGE value="adding reviews" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding reviews" />
+    <MESSAGE value="Product list on the home page. Top Rated Product Image Categories." />
+    <option name="LAST_COMMIT_MESSAGE" value="Product list on the home page. Top Rated Product Image Categories." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
