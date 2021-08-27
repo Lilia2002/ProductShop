@@ -24,7 +24,6 @@ class ProductController extends AbstractController
         $fieldName = $request->query->get('fieldName', 'p.name');
         $direction = $request->query->get('direction', 'ASC');
         $query     = $request->query->get('query');
-        $page = $request->query->get('page');
 
         $products  = $entityManager->getRepository(Product::class)->findProductsSearch($query, $fieldName, $direction);
 

@@ -142,6 +142,20 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function(){
+    $('.tab-trigger').click(function() {
+        let id = $(this).attr('data-bs-target');
+        let content = $(id);
+
+        $('.tab-trigger.active').removeClass('active');
+        $(this).addClass('active');
+
+        $('.tab-content.active').removeClass('show active');
+        content.addClass('show active');
+    });
+});
+
+
 
 
 

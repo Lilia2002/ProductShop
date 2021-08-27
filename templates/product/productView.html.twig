@@ -29,35 +29,59 @@
         </div>
 
         <div>
-            <h5>REVIEWS</h5>
-        {% for review in product.reviews %}
-                <div class="review">
-                    <div>{{ review.user.username }}</div>
-                    <div class="star-rating">
-                        <i class="bi bi-star{% if review.rating >= 1 %}-fill{% endif %}"></i>
-                        <i class="bi bi-star{% if review.rating >= 2 %}-fill{% endif %}"></i>
-                        <i class="bi bi-star{% if review.rating >= 3 %}-fill{% endif %}"></i>
-                        <i class="bi bi-star{% if review.rating >= 4 %}-fill{% endif %}"></i>
-                        <i class="bi bi-star{% if review.rating >= 5 %}-fill{% endif %}"></i>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link tab-trigger" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Reviews</button>
+                    <button class="nav-link tab-trigger active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Description</button>
+                    <button class="nav-link tab-trigger" id="specification-tab" data-bs-toggle="tab" data-bs-target="#specification" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Specifications</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade tab-content" id="review" data-tab="1" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="formReview">
+                        {% if form is defined %}
+                            <div>
+                                <h5>LEAVE YOUR REVIEW:</h5>
+                                <div class="star-rating rating-selector">
+                                    <i class="bi bi-star" data-rating="1" ></i>
+                                    <i class="bi bi-star" data-rating="2"></i>
+                                    <i class="bi bi-star" data-rating="3"></i>
+                                    <i class="bi bi-star" data-rating="4"></i>
+                                    <i class="bi bi-star" data-rating="5"></i>
+                                </div>
+                                {{ form(form) }}
+                            </div>
+                        {% endif %}
                     </div>
-                    {{ review.review }}
+                    {% for review in product.reviews %}
+                        <div class="review">
+                            <div>{{ review.user.username }}</div>
+                            <div class="star-rating">
+                                <i class="bi bi-star{% if review.rating >= 1 %}-fill{% endif %}"></i>
+                                <i class="bi bi-star{% if review.rating >= 2 %}-fill{% endif %}"></i>
+                                <i class="bi bi-star{% if review.rating >= 3 %}-fill{% endif %}"></i>
+                                <i class="bi bi-star{% if review.rating >= 4 %}-fill{% endif %}"></i>
+                                <i class="bi bi-star{% if review.rating >= 5 %}-fill{% endif %}"></i>
+                            </div>
+                            {{ review.review }}
+                        </div>
+                    {% endfor %}
+
                 </div>
-        {% endfor %}
-        </div>
-        <div class="formReview">
-        {% if form is defined %}
-            <div>
-                <h5>LEAVE YOUR REVIEW:</h5>
-                <div class="star-rating rating-selector">
-                    <i class="bi bi-star" data-rating="1" ></i>
-                    <i class="bi bi-star" data-rating="2"></i>
-                    <i class="bi bi-star" data-rating="3"></i>
-                    <i class="bi bi-star" data-rating="4"></i>
-                    <i class="bi bi-star" data-rating="5"></i>
+                <div class="tab-pane fade tab-content show active" id="description" data-tab="2" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="product-description">
+                        {{ product.description }}
+                    </div>
                 </div>
-                {{ form(form) }}
+                <div class="tab-pane fade tab-content" id="specification" role="tabpanel" data-tab="3" aria-labelledby="nav-contact-tab">
+                    {%  for specification in  product.productSpecifications %}
+                        <div class="product-specification">
+                            <h4>{{ specification.name }}:</h4>
+                            {{ specification.value }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        {% endif %}
         </div>
     </div>
 </div>

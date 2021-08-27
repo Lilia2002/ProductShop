@@ -95,15 +95,6 @@ img{
     color: #fff; /* Цвет текста активного пункта */
     background-color: #878484; /* Цвет фона активного пункта */
 }
-.review {
-    width:500px;
-    border-top:1px solid #9EC1D4;
-    border-bottom: dotted 1px #9EC1D4;
-    padding-left:10px
-}
-.formReview {
-    margin-left: 120px;
-}
 .star-rating i{
     color: darkorange;
 }
@@ -133,4 +124,30 @@ img{
 }
 .productName {
     color: #020202;
+}
+.review {
+    float: left;
+    width: 600px;
+    border-bottom: dotted 1px #57575a;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.product-description {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+.product-specification {
+    margin-top: 20px;
+    border: 1px solid #827e7e;
+    padding: 10px;
+}
+.product-specification h4 {
+    color: dimgray;
+}
+.formReview {
+    float: right;
+    width: 466px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

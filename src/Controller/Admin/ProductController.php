@@ -32,7 +32,7 @@ class ProductController extends AbstractController
 
         return $this->render('product/form.html.twig', [
             'product' => $product,
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
         ]);
     }
 
@@ -44,7 +44,7 @@ class ProductController extends AbstractController
 
         $product = $entityManager->getRepository(Product::class)->find($id);
 
-        $form = $this->createForm(ProductType::class, $product);
+        $form    = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
