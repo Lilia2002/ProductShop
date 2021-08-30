@@ -4,6 +4,58 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
+import {
+    Chart,
+    ArcElement,
+    LineElement,
+    BarElement,
+    PointElement,
+    BarController,
+    BubbleController,
+    DoughnutController,
+    LineController,
+    PieController,
+    PolarAreaController,
+    RadarController,
+    ScatterController,
+    CategoryScale,
+    LinearScale,
+    LogarithmicScale,
+    RadialLinearScale,
+    TimeScale,
+    TimeSeriesScale,
+    Decimation,
+    Filler,
+    Legend,
+    Title,
+    Tooltip
+} from 'chart.js';
+
+Chart.register(
+    ArcElement,
+    LineElement,
+    BarElement,
+    PointElement,
+    BarController,
+    BubbleController,
+    DoughnutController,
+    LineController,
+    PieController,
+    PolarAreaController,
+    RadarController,
+    ScatterController,
+    CategoryScale,
+    LinearScale,
+    LogarithmicScale,
+    RadialLinearScale,
+    TimeScale,
+    TimeSeriesScale,
+    Decimation,
+    Filler,
+    Legend,
+    Title,
+    Tooltip
+);
 
 require('bootstrap-icons/font/bootstrap-icons.css')
 // import '../node_modules/bootstrap-icons/icons/'
@@ -12,6 +64,7 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
 
 $(document).ready(function() {
 
@@ -153,6 +206,33 @@ $(document).ready(function(){
         $('.tab-content.active').removeClass('show active');
         content.addClass('show active');
     });
+});
+
+$(document).ready(function(){
+
+    let arr = [];
+    let array = [];
+
+    $('tbody tr').each(function(){
+        array.push(parseFloat($(this).find('.price').text()));
+        arr.push($(this).find('.priceDate').text());
+    });
+
+    var ctx = $('#myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: arr,
+            datasets: [{
+                label: 'Price',
+                data: array,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+    });
+
 });
 
 
