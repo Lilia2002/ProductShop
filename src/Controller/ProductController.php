@@ -115,7 +115,7 @@ class ProductController extends AbstractController
 
         $orders = $entityManager->getRepository(Order::class)->findOrdersOnUserAndProduct($product, $this->getUser(), Order::STATUS_COMPLETED);
 
-        if (!$review && $orders) {
+        if (!$review && $orders && $this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $review = new Review();
             $form   = $this->createForm(ReviewType::class, $review);
 

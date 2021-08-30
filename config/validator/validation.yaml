@@ -29,12 +29,16 @@ App\Entity\User:
                         pattern: '/^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i'
                         message: 'Password must contain at least one letter'
 
+App\Entity\Product:
+    properties:
+        productSpecifications:
+            - Valid: ~
+            - App\Validator\Constrains\UniqueArrayValue: ~
+
 
 App\Entity\ProductSpecification:
     properties:
         value:
             - NotBlank: ~
-
         name:
-            - Unique: ~
-
+            - NotBlank: ~

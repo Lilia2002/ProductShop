@@ -58,6 +58,25 @@ class ProductController extends AbstractController
 
                 $product->setImg($newName);
             }
+
+            foreach ($product->getProductSpecifications() as $keys => $specification) {
+
+                $name = $specification->getName();
+
+                foreach ($product->getProductSpecifications() as $key => $value) {
+                    if ($keys == $key) {
+                        continue;
+                    }
+                    if ($value->getName() == $name) {
+                        throw $this->createNotFoundException();
+                    }
+                }
+
+                if ($specification->getValue() == '') {
+                    throw $this->createNotFoundException();
+                }
+            }
+
             $entityManager->persist($product);
             $entityManager->flush();
 

@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7111acb-e597-45d6-a870-67096c1fa085" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Validator/Constrains/UniqueArrayValue.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Validator/Constrains/UniqueArrayValueValidator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/validator/validation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/validator/validation.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/Admin/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/product/productView.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/productView.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,6 +185,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Validator" />
       <recent name="$PROJECT_DIR$/templates/order" />
       <recent name="$PROJECT_DIR$/templates/homepage" />
     </key>
@@ -218,7 +218,8 @@
       <workItem from="1629777686578" duration="27200000" />
       <workItem from="1629863799251" duration="25103000" />
       <workItem from="1629949410615" duration="20186000" />
-      <workItem from="1630040264032" duration="15956000" />
+      <workItem from="1630040264032" duration="24412000" />
+      <workItem from="1630297580745" duration="11226000" />
     </task>
     <task id="LOCAL-00001" summary="Collection Product specifications">
       <created>1629691521434</created>
@@ -248,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1630050267845</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adding product tabs">
+      <created>1630059624157</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1630059624157</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,7 +267,8 @@
     <MESSAGE value="adding reviews" />
     <MESSAGE value="Product list on the home page. Top Rated Product Image Categories." />
     <MESSAGE value="top rated products on the homepage" />
-    <option name="LAST_COMMIT_MESSAGE" value="top rated products on the homepage" />
+    <MESSAGE value="adding product tabs" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding product tabs" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
