@@ -72,7 +72,7 @@ class PriceHistory
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getPriceDate()
     {

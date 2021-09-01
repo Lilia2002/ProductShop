@@ -13,37 +13,15 @@
                 {{ priceHistory[0].product.price/100 }} $
             </h3>
         </div>
-        <div>
+    <div class="container-ph">
+        <div id="priceHistory" data-product="{{ priceHistory[0].product.id }}">
             <canvas id="myChart" width="400" height="400"></canvas>
         </div>
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <th scope="col" >#</th>
-                <th scope="col"><a href="" class="btn btn-light">id</a></th>
-                <th scope="col"><a href="" class="btn btn-light">PriceDate</a></th>
-                <th scope="col"><a href="" class="btn btn-light">Price</a></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for price in priceHistory %}
-                <tr>
-                    <th scope="row">{{ loop.index }}</th>
-                    <td><p class="hidden-text">{{ price.id }}</p></td>
-                    <td class="priceDate"><p class="hidden-text">{{ price.priceDate|date()}}</p></td>
-                    {% if averagePrice == price.price %}
-                    <td class="price"><p class="text-warning">{{ price.price/100 }} $</p></td>
-                    {% endif %}
-                    {% if averagePrice > price.price %}
-                        <td class="price"><p class="text-success">{{ price.price/100 }} $</p></td>
-                    {% endif %}
-                    {% if averagePrice < price.price %}
-                        <td class="price"><p class="text-danger">{{ price.price/100 }} $</p></td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    </div>
+    <div class="container-ph">
+        <div id="orderHistory" data-product="{{ priceHistory[0].product.id }}">
+            <canvas id="myChartOrder" width="400" height="400"></canvas>
+        </div>
     </div>
 
 {% endblock %}

@@ -92,10 +92,6 @@ statusCompleted:
   path:       /order/completed/{id}
   controller: App\Controller\OrderController::changeStatusToCompleted
 
-priceDynamics:
-  path:       /product/{id}/price-dynamic
-  controller: App\Controller\ProductController::showPriceDynamic
-
 search:
   path:       /product/autocomplete
   controller: App\Controller\ProductController::completionSearchProduct
@@ -104,6 +100,21 @@ orderListStatistics:
   path:       /admin/order/list/statistics
   controller: App\Controller\Admin\OrderController::totalSumForUsers
 
+getDataFromTable:
+  path: /product/order-dynamic
+  controller: App\Controller\ProductController::getDataFromTable
+
+chartPriceByDay:
+  path: /product/price-dynamic
+  controller: App\Controller\ProductController::chartPriceByDay
+
 product:
   path:       /product/{id}
   controller: App\Controller\ProductController::product
+  requirements:
+    id: '\d+'
+
+priceDynamics:
+  path: /product/price-dynamic/{id}
+  controller: App\Controller\ProductController::showPriceDynamic
+

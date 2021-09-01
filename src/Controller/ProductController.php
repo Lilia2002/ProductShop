@@ -4,10 +4,12 @@ namespace App\Controller;
 
 
 use App\Entity\Order;
+use App\Entity\PriceHistory;
 use App\Entity\Product;
 use App\Entity\Review;
 use App\Event\AddReviewOrChangeRatingEvent;
 use App\Form\Type\ReviewType;
+use App\Repository\OrderProductRepository;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,31 +43,6 @@ class ProductController extends AbstractController
         return $this->render('product/list.html.twig', [
             'products'       => $products,
             'order'          => $order,
-        ]);
-    }
-
-    public function showPriceDynamic(int $id)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $product = $entityManager->getRepository(Product::class)->find($id);
-
-        $priceHistory = $product->getPriceHistories();
-
-        if (!$priceHistory->first()) {
-            throw $this->createNotFoundException();
-        }
-
-        $price = [];
-        foreach ($priceHistory as $history) {
-            $price[] = $history->getPrice();
-        }
-
-        $averagePrice = array_sum($price)/count($price);
-
-        return $this->render('product/priceDynamics.html.twig', [
-            'priceHistory' => $priceHistory,
-            'averagePrice' => $averagePrice,
         ]);
     }
 
@@ -143,5 +120,78 @@ class ProductController extends AbstractController
         return $this->render('product/productView.html.twig', [
             'product' => $product,
         ]);
+    }
+
+    public function showPriceDynamic(int $id, OrderProductRepository $orderProductRepository)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product = $entityManager->getRepository(Product::class)->find($id);
+
+        $priceHistory = $product->getPriceHistories();
+
+        if (!$priceHistory->first()) {
+            throw $this->createNotFoundException();
+        }
+        $orderHistory = $orderProductRepository->orderProductDynamic($product);
+
+        $price = [];
+        foreach ($priceHistory as $history) {
+            $price[$history->getPrice()] = $history->getPrice();
+        }
+
+        $averagePrice = array_sum($price)/count($price);
+
+        return $this->render('product/priceDynamics.html.twig', [
+            'priceHistory' => $priceHistory,
+            'averagePrice' => $averagePrice,
+            'orderHistory' => $orderHistory,
+        ]);
+    }
+
+    public function getDataFromTable(Request $request, OrderProductRepository $orderProductRepository)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product_id = $request->query->get('id');
+
+        $product = $entityManager->getRepository(Product::class)->find($product_id);
+
+        $orderHistory = $orderProductRepository->orderProductDynamic($product);
+
+        $order = [];
+        foreach ($orderHistory as $history) {
+            $order[$history['day']] = $history['amount'];
+        }
+
+        $result = [];
+
+        foreach (new \DatePeriod(new \DateTime('-32 days'), new \DateInterval('P1D'), new \DateTime()) as $day) {
+            $result[] = [
+                'amount' => $order[$day->format('Y-m-d')] ?? 0,
+                'day'    => $day->format('Y-m-d'),
+            ];
+        }
+        return $this->json($result);
+    }
+
+    public function ChartPriceByDay(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $product_id = $request->query->get('id');
+
+        $product = $entityManager->getRepository(Product::class)->find($product_id);
+
+        $priceHistory = $product->getPriceHistories();
+
+        $price = [];
+        foreach ($priceHistory as $history) {
+            $price[] = [
+                'day' => $history->getPriceDate()->format('Y-m-d'),
+                'price' => number_format($history->getPrice() / 100, 2)
+            ];
+        }
+        return $this->json($price);
     }
 }

@@ -209,30 +209,74 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+    let article = document.getElementById('orderHistory');
+    let labels  = [];
+    let data    = [];
 
-    let arr = [];
-    let array = [];
-
-    $('tbody tr').each(function(){
-        array.push(parseFloat($(this).find('.price').text()));
-        arr.push($(this).find('.priceDate').text());
-    });
-
-    var ctx = $('#myChart');
-    var myChart = new Chart(ctx, {
-        type: 'line',
+    $.ajax({
+        type: "GET",
+        url: '/product/order-dynamic',
         data: {
-            labels: arr,
-            datasets: [{
-                label: 'Price',
-                data: array,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
+            id: article.dataset.product
         },
-    });
+        success: function(response) {
+            $(response).each(function (e) {
+                if (this.day == null) {
+                    return true;
+                }
+                data.push(this.amount);
+                labels.push(this.day);
+            });
 
+            new Chart($('#myChartOrder'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Amount',
+                        data: data,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+            });
+        }
+    });
+});
+
+$(document).ready(function(){
+    let article = document.getElementById('priceHistory');
+    let labels  = [];
+    let data    = [];
+
+    $.ajax({
+        type: "GET",
+        url: '/product/price-dynamic',
+        data: {
+            id: article.dataset.product
+        },
+        success: function(response) {
+            $(response).each(function (e) {
+                data.push(this.price);
+                labels.push(this.day);
+            });
+
+            new Chart($('#myChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Price',
+                        data: data,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    }]
+                },
+            });
+        }
+    });
 });
 
 
