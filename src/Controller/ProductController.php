@@ -16,12 +16,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends AbstractController
 {
     public function productList(Request $request, PaginatorInterface $paginator)
     {
-        $entityManager   = $this->getDoctrine()->getManager();
+        $entityManager = $this->getDoctrine()->getManager();
 
         $fieldName = $request->query->get('fieldName', 'p.name');
         $direction = $request->query->get('direction', 'ASC');
@@ -90,7 +91,12 @@ class ProductController extends AbstractController
             'user'    => $this->getUser(),
         ]);
 
-        $orders = $entityManager->getRepository(Order::class)->findOrdersOnUserAndProduct($product, $this->getUser(), Order::STATUS_COMPLETED);
+        $orders = $entityManager->getRepository(Order::class)
+            ->findOrdersOnUserAndProduct(
+                $product,
+                $this->getUser(),
+                Order::STATUS_COMPLETED
+            );
 
         if (!$review && $orders && $this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $review = new Review();
@@ -104,7 +110,10 @@ class ProductController extends AbstractController
 
                 $entityManager->persist($review);
                 $entityManager->flush();
-                $dispatcher->dispatch(new AddReviewOrChangeRatingEvent($product), AddReviewOrChangeRatingEvent::NAME);
+                $dispatcher->dispatch(
+                    new AddReviewOrChangeRatingEvent($product),
+                    AddReviewOrChangeRatingEvent::NAME
+                );
 
                 return $this->redirectToRoute("product", [
                     'id' => $product->getId(),
@@ -122,42 +131,23 @@ class ProductController extends AbstractController
         ]);
     }
 
-    public function showPriceDynamic(int $id, OrderProductRepository $orderProductRepository)
+    public function productStatistics(int $id, ProductRepository $productRepository): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
+        $product = $productRepository->find($id);
 
-        $product = $entityManager->getRepository(Product::class)->find($id);
-
-        $priceHistory = $product->getPriceHistories();
-
-        if (!$priceHistory->first()) {
-            throw $this->createNotFoundException();
-        }
-        $orderHistory = $orderProductRepository->orderProductDynamic($product);
-
-        $price = [];
-        foreach ($priceHistory as $history) {
-            $price[$history->getPrice()] = $history->getPrice();
-        }
-
-        $averagePrice = array_sum($price)/count($price);
+//        $averagePrice = array_sum($price)/count($price); todo: придумать где и как отображать среднюю стоимость продукта
 
         return $this->render('product/priceDynamics.html.twig', [
-            'priceHistory' => $priceHistory,
-            'averagePrice' => $averagePrice,
-            'orderHistory' => $orderHistory,
+            'product' => $product,
         ]);
     }
 
-    public function getDataFromTable(Request $request, OrderProductRepository $orderProductRepository)
+    public function getDataProductOrderStatistics(Request $request, OrderProductRepository $orderProductRepository)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $product_id = $request->query->get('id');
-
-        $product = $entityManager->getRepository(Product::class)->find($product_id);
-
-        $orderHistory = $orderProductRepository->orderProductDynamic($product);
+        $productId = $request->query->get('id');
+        $orderHistory = $orderProductRepository->orderProductDynamic($productId);
+        $startDate = new \DateTime($request->query->get('start') ?: '-31 days');
+        $endDate   = new \DateTime($request->query->get('end') ?: 'now');
 
         $order = [];
         foreach ($orderHistory as $history) {
@@ -166,32 +156,61 @@ class ProductController extends AbstractController
 
         $result = [];
 
-        foreach (new \DatePeriod(new \DateTime('-32 days'), new \DateInterval('P1D'), new \DateTime()) as $day) {
+        foreach (new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate) as $day) {
             $result[] = [
-                'amount' => $order[$day->format('Y-m-d')] ?? 0,
-                'day'    => $day->format('Y-m-d'),
+                'y' => $order[$day->format('Y-m-d')] ?? 0,
+                'x' => $day->format('Y-m-d'),
             ];
         }
         return $this->json($result);
     }
 
-    public function ChartPriceByDay(Request $request)
+    public function getDataProductPriceStatistics(Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $product_id = $request->query->get('id');
+        $startDate = new \DateTime($request->query->get('start') ?: '-31 days');
+        $endDate   = new \DateTime($request->query->get('end') ?: 'now');
 
-        $product = $entityManager->getRepository(Product::class)->find($product_id);
+        $pricesHistory = $entityManager->getRepository(PriceHistory::class)->findPricesInRange($request->query->get('id'));
+        $prices = [];
 
-        $priceHistory = $product->getPriceHistories();
+        foreach ($pricesHistory as $priceHistory) {
+            $prices[$priceHistory->getPriceDate()->format('Y-m-d')] = $priceHistory->getPrice();
+        }
+
+        $priceStartDate = 0;
+        $pricesReverse  = array_reverse($prices);
+        foreach ($pricesReverse as $date => $value) {
+            if ($startDate->format('Y-m-d') > $date) {
+                $priceStartDate = $value;
+                break;
+            }
+        }
+
+        $result = [];
+        $result[$startDate->format('Y-m-d')] = $priceStartDate;
+
+        foreach (new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate) as $day) {
+            $currentDate  = $day->format('Y-m-d');
+            $previousDate = (clone $day)->modify('-1 day')->format('Y-m-d');
+
+            if (array_key_exists($currentDate, $prices)) {
+                $result[$currentDate] = $prices[$currentDate];
+            } elseif ($currentDate   !== $startDate->format('Y-m-d')) {
+                $result[$currentDate] = $result[$previousDate];
+            }
+        }
 
         $price = [];
-        foreach ($priceHistory as $history) {
+
+        foreach (new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate) as $day) {
             $price[] = [
-                'day' => $history->getPriceDate()->format('Y-m-d'),
-                'price' => number_format($history->getPrice() / 100, 2)
+                'y' => number_format($result[$day->format('Y-m-d')] / 100, 2),
+                'x' => $day->format('Y-m-d'),
             ];
         }
+
         return $this->json($price);
     }
 }

@@ -5,7 +5,6 @@ namespace App\Repository;
 
 
 use App\Entity\OrderProduct;
-use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,14 +15,14 @@ class OrderProductRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderProduct::class);
     }
 
-    public function orderProductDynamic(Product $product)
+    public function orderProductDynamic(?int $productId)
     {
         $qb  = $this->createQueryBuilder('op');
         $qb
             ->select('SUM(op.amount) as amount, DATE(o.createdAt) as day')
             ->leftJoin('op.order', 'o')
             ->andWhere('op.product = :product')
-            ->setParameter('product', $product)
+            ->setParameter('product', $productId)
             ->groupBy('day')
         ;
 

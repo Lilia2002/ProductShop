@@ -151,3 +151,22 @@ img{
     padding-top: 20px;
     padding-bottom: 20px;
 }
+.start-end-date {
+    float: right;
+    margin-top: 20px;
+    color: #4141ce;
+}
+.name-and-price {
+    margin-top: 20px;
+}
+.product-statistics {
+    margin-top: 20px;
+    margin-left: 500px;
+    margin-right: auto;
+}
+.end-date {
+    margin-top: 10px;
+}
+#submit {
+    margin-top: 10px;
+}

@@ -31,22 +31,22 @@ class OrderRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('o');
 
-            $qb
-                ->addSelect('SUM(op.amount) as HIDDEN amount')
-            ;
+        $qb
+            ->addSelect('SUM(op.amount) as HIDDEN amount')
+        ;
 
-            if ($status) {
-                $qb
-                    ->andWhere('o.status = :status')
-                    ->setParameter('status', $status)
-                ;
-            }
-
+        if ($status) {
             $qb
-                ->groupBy('o')
-                ->leftJoin('o.orderProducts', 'op')
-                ->addOrderBy($fieldName, $direction)
+                ->andWhere('o.status = :status')
+                ->setParameter('status', $status)
             ;
+        }
+
+        $qb
+            ->groupBy('o')
+            ->leftJoin('o.orderProducts', 'op')
+            ->addOrderBy($fieldName, $direction)
+        ;
 
         return $qb->getQuery()->getResult();
     }
@@ -116,11 +116,12 @@ class OrderRepository extends ServiceEntityRepository
             ->setParameter('product', $product)
         ;
 
-            if ($user) {
-                $qb
-                    ->andWhere('o.user = :user')
-                    ->setParameter('user', $user);
-            }
+        if ($user) {
+            $qb
+                ->andWhere('o.user = :user')
+                ->setParameter('user', $user)
+            ;
+        }
 
         if ($status) {
             $qb

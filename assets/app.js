@@ -209,76 +209,64 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-    let article = document.getElementById('orderHistory');
-    let labels  = [];
-    let data    = [];
-
-    $.ajax({
-        type: "GET",
-        url: '/product/order-dynamic',
-        data: {
-            id: article.dataset.product
-        },
-        success: function(response) {
-            $(response).each(function (e) {
-                if (this.day == null) {
-                    return true;
-                }
-                data.push(this.amount);
-                labels.push(this.day);
-            });
-
-            new Chart($('#myChartOrder'), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Amount',
-                        data: data,
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }]
-                },
-            });
-        }
-    });
-});
-
-$(document).ready(function(){
     let article = document.getElementById('priceHistory');
-    let labels  = [];
-    let data    = [];
 
-    $.ajax({
-        type: "GET",
-        url: '/product/price-dynamic',
-        data: {
-            id: article.dataset.product
-        },
-        success: function(response) {
-            $(response).each(function (e) {
-                data.push(this.price);
-                labels.push(this.day);
-            });
+    let startDate = $("#dateStart").val();
+    let endDate   = $("#dateEnd").val();
 
-            new Chart($('#myChart'), {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Price',
-                        data: data,
-                        fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }]
-                },
-            });
-        }
+    getChartData('/product/price-dynamic', article.dataset.product, startDate, endDate, '#priceHistory', 'Price');
+    getChartData('/product/order-dynamic', article.dataset.product, startDate, endDate, '#orderHistory', 'Amount');
+
+    $("#submit").on('click', function(e) {
+        let startDate = $("#dateStart").val();
+        let endDate   = $("#dateEnd").val();
+
+        getChartData('/product/price-dynamic', article.dataset.product, startDate, endDate, '#priceHistory', 'Price');
+        getChartData('/product/order-dynamic', article.dataset.product, startDate, endDate, '#orderHistory', 'Amount');
     });
 });
 
+function getChartData(url, productId, startDate, endDate, chartId, chartName)
+{
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            id: productId,
+            start: startDate,
+            end: endDate,
+        },
+        success: function (response) {
+            let data = [];
+            let labels = [];
+            $(response).each(function (e) {
+                data.push(this.y);
+                labels.push(this.x);
+            });
+            renderChart(chartId, labels, data, chartName)
+        },
+
+    });
+}
+
+function renderChart(chartWrapperId, labels, data, chartName)
+{
+    let wrapper = $(chartWrapperId);
+    wrapper.html('<canvas class="chart" width="400" height="400"></canvas>');
+    new Chart($(wrapper.find('canvas')), {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: chartName,
+                data: data,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+    });
+}
 
 
 

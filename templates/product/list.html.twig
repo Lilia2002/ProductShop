@@ -110,7 +110,7 @@
                             {% endif %}
 
                             {% if not product.priceHistories.empty() %}
-                                <a href="{{ path('priceDynamics', {
+                                <a href="{{ path('productStatistics', {
                                     'id': product.id
                                 }) }}" class="btn btn-dark btn-sm">PriceHistory</a>
                             {% endif %}

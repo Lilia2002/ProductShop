@@ -101,12 +101,12 @@ orderListStatistics:
   controller: App\Controller\Admin\OrderController::totalSumForUsers
 
 getDataFromTable:
-  path: /product/order-dynamic
-  controller: App\Controller\ProductController::getDataFromTable
+  path:       /product/order-dynamic
+  controller: App\Controller\ProductController::getDataProductOrderStatistics
 
 chartPriceByDay:
-  path: /product/price-dynamic
-  controller: App\Controller\ProductController::chartPriceByDay
+  path:       /product/price-dynamic
+  controller: App\Controller\ProductController::getDataProductPriceStatistics
 
 product:
   path:       /product/{id}
@@ -114,7 +114,7 @@ product:
   requirements:
     id: '\d+'
 
-priceDynamics:
-  path: /product/price-dynamic/{id}
-  controller: App\Controller\ProductController::showPriceDynamic
+productStatistics:
+  path:       /product/statistics/{id}
+  controller: App\Controller\ProductController::productStatistics
 
