@@ -37,20 +37,6 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_USER")
-     */
-    public function userOrderList(Request $request, OrderRepository $orderRepo)
-    {
-        return $this->render('order/listUserOrder.html.twig', [
-            'orders' => $orderRepo->findUserOrdersSorted(
-                $request->query->get('fieldName', 'o.status'),
-                $request->query->get('direction', 'ASC'),
-                $this->getUser()
-            ),
-        ]);
-    }
-
-    /**
      * есть статус - basket - статус может менять только владелец заказа на processing
      * если статус - processing - статус может менять только менеджер+ на sent or canceled
      * если статус - sent - статус может поменять только владелец заказа на completed
@@ -136,6 +122,5 @@ class OrderController extends AbstractController
             'totals'          => $totals,
             'order'           => $order,
         ]);
-
     }
 }

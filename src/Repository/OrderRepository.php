@@ -132,5 +132,34 @@ class OrderRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+
+    public function ordersDynamic(string $status)
+    {
+        $qb  = $this->createQueryBuilder('o');
+        $qb
+            ->select('COUNT(o.id) as id, DATE(o.processedAt) as day')
+            ->andWhere('o.status = :status')
+            ->setParameter('status', $status)
+            ->groupBy('day')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function ordersTotalDynamic(string $status)
+    {
+        $qb  = $this->createQueryBuilder('o');
+        $qb
+            ->select('SUM(o.total) as total, DATE(o.processedAt) as day')
+            ->andWhere('o.status = :status')
+            ->setParameter('status', $status)
+            ->groupBy('day')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
 }
 

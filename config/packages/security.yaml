@@ -47,5 +47,5 @@ security:
 #        - { path: '^/admin/users', roles: ROLE_SUPER_ADMIN }
 #
 #        # matches /admin/* except for anything matching the above rule
-#        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: '^/admin/', roles: ROLE_MANAGER }
 #

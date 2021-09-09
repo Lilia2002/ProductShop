@@ -99,12 +99,20 @@ class Product
      */
     private $reviews;
 
+    /**
+     * @var ProductImage[]|ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\ProductImage", mappedBy="product")
+     */
+    private $images;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
         $this->priceHistories = new ArrayCollection();
         $this->productSpecifications = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     /**
@@ -122,6 +130,24 @@ class Product
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return ProductImage[]|ArrayCollection
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * @param ProductImage[]|ArrayCollection $image
+     * @return Product
+     */
+    public function setImages($images)
+    {
+        $this->images = $images;
         return $this;
     }
 

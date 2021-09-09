@@ -96,24 +96,6 @@
                                     'id': product.id
                                 }) }}">Add to Cart</a>
                             {% endif %}
-
-                            {% if is_granted('ROLE_MANAGER') %}
-                                <a href="{{ path('productEdit', {
-                                    'id': product.id
-                                }) }}" class="btn btn-dark btn-sm">Edit</a>
-                            {% endif %}
-
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('productDelete', {
-                                    'id': product.id
-                                }) }}" class="btn btn-dark btn-sm">Delete</a>
-                            {% endif %}
-
-                            {% if not product.priceHistories.empty() %}
-                                <a href="{{ path('productStatistics', {
-                                    'id': product.id
-                                }) }}" class="btn btn-dark btn-sm">PriceHistory</a>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -4,19 +4,16 @@ namespace App\Controller;
 
 
 use App\Entity\Order;
-use App\Entity\PriceHistory;
 use App\Entity\Product;
 use App\Entity\Review;
 use App\Event\AddReviewOrChangeRatingEvent;
 use App\Form\Type\ReviewType;
-use App\Repository\OrderProductRepository;
 use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends AbstractController
 {
@@ -129,88 +126,5 @@ class ProductController extends AbstractController
         return $this->render('product/productView.html.twig', [
             'product' => $product,
         ]);
-    }
-
-    public function productStatistics(int $id, ProductRepository $productRepository): Response
-    {
-        $product = $productRepository->find($id);
-
-//        $averagePrice = array_sum($price)/count($price); todo: придумать где и как отображать среднюю стоимость продукта
-
-        return $this->render('product/priceDynamics.html.twig', [
-            'product' => $product,
-        ]);
-    }
-
-    public function getDataProductOrderStatistics(Request $request, OrderProductRepository $orderProductRepository)
-    {
-        $productId = $request->query->get('id');
-        $orderHistory = $orderProductRepository->orderProductDynamic($productId);
-        $startDate = new \DateTime($request->query->get('start') ?: '-31 days');
-        $endDate   = new \DateTime($request->query->get('end') ?: 'now');
-
-        $order = [];
-        foreach ($orderHistory as $history) {
-            $order[$history['day']] = $history['amount'];
-        }
-
-        $result = [];
-
-        foreach (new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate) as $day) {
-            $result[] = [
-                'y' => $order[$day->format('Y-m-d')] ?? 0,
-                'x' => $day->format('Y-m-d'),
-            ];
-        }
-        return $this->json($result);
-    }
-
-    public function getDataProductPriceStatistics(Request $request)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $startDate = new \DateTime($request->query->get('start') ?: '-31 days');
-        $endDate   = new \DateTime($request->query->get('end') ?: 'now');
-
-        $pricesHistory = $entityManager->getRepository(PriceHistory::class)->findPricesInRange($request->query->get('id'));
-        $prices = [];
-
-        foreach ($pricesHistory as $priceHistory) {
-            $prices[$priceHistory->getPriceDate()->format('Y-m-d')] = $priceHistory->getPrice();
-        }
-
-        $priceStartDate = 0;
-        $pricesReverse  = array_reverse($prices);
-        foreach ($pricesReverse as $date => $value) {
-            if ($startDate->format('Y-m-d') > $date) {
-                $priceStartDate = $value;
-                break;
-            }
-        }
-
-        $result = [];
-        $result[$startDate->format('Y-m-d')] = $priceStartDate;
-
-        foreach (new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate) as $day) {
-            $currentDate  = $day->format('Y-m-d');
-            $previousDate = (clone $day)->modify('-1 day')->format('Y-m-d');
-
-            if (array_key_exists($currentDate, $prices)) {
-                $result[$currentDate] = $prices[$currentDate];
-            } elseif ($currentDate   !== $startDate->format('Y-m-d')) {
-                $result[$currentDate] = $result[$previousDate];
-            }
-        }
-
-        $price = [];
-
-        foreach (new \DatePeriod($startDate, new \DateInterval('P1D'), $endDate) as $day) {
-            $price[] = [
-                'y' => number_format($result[$day->format('Y-m-d')] / 100, 2),
-                'x' => $day->format('Y-m-d'),
-            ];
-        }
-
-        return $this->json($price);
     }
 }

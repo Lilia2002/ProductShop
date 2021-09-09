@@ -26,6 +26,7 @@ App\Entity\User:
                     - Length:
                         min: 3
                     - Regex:
+                        groups: [registration]
                         pattern: '/^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i'
                         message: 'Password must contain at least one letter'
 

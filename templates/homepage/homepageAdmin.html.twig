@@ -1,0 +1,28 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block body %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('chart') }}
+    {% endblock %}
+
+    <div class="container-ph start-end-date">
+        <label class="start-date">Start:</label>
+        <input id="dateStartOrder" type="date" name="start">
+        <label class="end-date">End:</label>
+        <input id="dateEndOrder" type="date" name="end">
+        <button class="btn btn-primary" id="submit" type="submit">Save</button>
+    </div>
+
+    <div class="container-ph order-statistics">
+        <div class="row">
+            <div id="ordersHistory">
+                <canvas class="chart" width="400" height="400"></canvas>
+            </div>
+            <div id="priceOrdersHistory">
+                <canvas class="chart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -47,9 +47,16 @@ class ProductType extends AbstractType
             ->add('productSpecifications', CollectionType::class, [
                 'entry_type'    => ProductSpecificationType::class,
                 'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'by_reference' => false,
-                'allow_delete' => true,
+                'allow_add'     => true,
+                'by_reference'  => false,
+                'allow_delete'  => true,
+            ])
+            ->add('images', CollectionType::class, [
+                'entry_type'    => ProductImageType::class,
+                'entry_options' => ['label' => false],
+                'allow_add'     => true,
+                'by_reference'  => false,
+                'allow_delete'  => true,
             ])
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ;

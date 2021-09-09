@@ -98,6 +98,7 @@ class OrderController extends AbstractController
             }
 
             $order->setStatus(Order::STATUS_PROCESSING);
+            $order->setProcessedAt(new \DateTime());
 
             $entityManager->persist($order);
             $entityManager->flush();

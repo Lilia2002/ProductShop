@@ -1,0 +1,124 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block body %}
+    <div class="container sort" xmlns="http://www.w3.org/1999/html">
+        <div class="row">
+            <div class="form-group">
+                <label>Sort by</label>
+                <select class="form-select" id="form_frame">
+                    <option
+                            value ="{{ path('productList', {
+                                'fieldName': 'p.name',
+                                'query': app.request.query.get('query'),
+                                'direction': app.request.query.get('direction') == 'DESC' ? 'ASC' : 'DESC'
+                            }) }}" class="btn btn-light">Name
+                    </option>
+                    <option
+                            value ="{{ path('productList', {
+                                'fieldName': 'p.description',
+                                'query': app.request.query.get('query'),
+                                'direction': app.request.query.get('direction') == 'ASC' ? 'DESC' : 'ASC'
+                            }) }}" class="btn btn-light">Description
+                    </option>
+                    <option
+                            value ="{{ path('productList', {
+                                'fieldName': 'p.price',
+                                'query': app.request.query.get('query'),
+                                'direction': app.request.query.get('direction') == 'DESC' ? 'ASC' : 'DESC'
+                            }) }}" class="btn btn-light">Price
+                    </option>
+                    <option
+                            value ="{{ path('productList', {
+                                'fieldName': 'c.name',
+                                'query': app.request.query.get('query'),
+                                'direction': app.request.query.get('direction') == 'ASC' ? 'DESC' : 'ASC'
+                            })  }}" class="btn btn-light">Category
+                    </option>
+                </select>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(products) }}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class=" col-md-4 col-sm-6 px-2 mb-4">
+                    <div class="card-products product-card">
+                        {% if ('http' in product.img) == false %}
+                            <a href="{{ path('product', {
+                                'id': product.id
+                            }) }}"><img src="{{ '/uploads/product/' ~ product.img }}" height="200px" width="50px" alt="Product"></a>
+                        {% else %}
+                            <a href="{{ path('product', {
+                                'id': product.id
+                            }) }}"><img src="{{ product.img }}" height="230px" width="150px" alt="Product"></a>
+                        {% endif %}
+                        <div class="card-body py-2">
+                            <a class="productName" href="{{ path('product', {
+                                'id': product.id
+                            }) }}">{{ product.name }}
+                            </a>
+                            <div>
+                                {% if product.category %}
+                                    <a class="category" href="{{ path('product', {
+                                        'id': product.id
+                                    }) }}">{{ product.category.name }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="product-price">{{ product.price/100 }} $</div>
+                                <div class="star-rating">
+                                    <i class="bi bi-star{% if product.rating >= 1 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 2 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 3 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 4 %}-fill{% endif %}"></i>
+                                    <i class="bi bi-star{% if product.rating >= 5 %}-fill{% endif %}"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body card-body-hidden">
+                            {% set hasProductInOrder = false %}
+                            {% for orderProduct in product.orderProducts %}
+                                {%  if  orderProduct.order == order %}
+                                    {% set hasProductInOrder = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if hasProductInOrder %}
+                                <a class="btn btn-success btn-sm d-block w-100 mb-2" type="button" href="{{  path('addProductToOrder', {
+                                    'id': product.id
+                                }) }}">Add to Cart</a>
+                            {% else %}
+                                <a class="btn btn-info btn-sm d-block w-100 mb-2" type="button" href="{{  path('addProductToOrder', {
+                                    'id': product.id
+                                }) }}">Add to Cart</a>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_MANAGER') %}
+                                <a href="{{ path('productEdit', {
+                                    'id': product.id
+                                }) }}" class="btn btn-dark btn-sm">Edit</a>
+
+                                {% if not product.priceHistories.empty() %}
+                                    <a href="{{ path('productStatistics', {
+                                        'id': product.id
+                                    }) }}" class="btn btn-dark btn-sm">PriceHistory</a>
+                                {% endif %}
+                            {% endif %}
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('productDelete', {
+                                    'id': product.id
+                                }) }}" class="btn btn-dark btn-sm">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

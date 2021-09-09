@@ -76,6 +76,11 @@ class Order
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $processedAt;
+
+    /**
      * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $status; //  - статус продукта "basket", "processing", "sent", "completed"
@@ -101,6 +106,24 @@ class Order
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProcessedAt()
+    {
+        return $this->processedAt;
+    }
+
+    /**
+     * @param mixed $processedAt
+     * @return Order
+     */
+    public function setProcessedAt($processedAt)
+    {
+        $this->processedAt = $processedAt;
+        return $this;
     }
 
     public function getStatus(): ?string

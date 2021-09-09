@@ -1,7 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseAdmin.html.twig' %}
 {% block body %}
     <div class="container">
+        <input type="file" multiple="multiple" accept=".txt,image/*">
+        <a href="" class="btn btn-light" id="uploadFile">Загрузить файлы</a>
+        <div class="ajax-respond"></div>
         {{ form_start(form) }}
+
+        <h3>Images</h3>
+        <ul class="list-group images" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+            <button type="button" class="add_item_link" data-collection-holder-class="images">Add an image</button>
+            {% for image in form.images %}
+                <li class="list-group-item">
+                <li id="path">{{ form_row(image.path) }}</li>
+                <li id="originalFileName">{{ form_row(image.originalFileName) }}</li>
+            {% endfor %}
+        </ul>
 
         {{ form_row(form.name) }}
         {{ form_row(form.description) }}

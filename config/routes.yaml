@@ -9,6 +9,8 @@ productCreate:
 productList:
   path:       /product/list
   controller: App\Controller\ProductController::productList
+  options:
+    expose: true
 
 productEdit:
   path:       /admin/product/edit/{id}
@@ -85,8 +87,8 @@ statusBasket:
     newStatus:      basket
 
 userOrderList:
-  path:       /admin/user/order/list
-  controller: App\Controller\Admin\OrderController::userOrderList
+  path:       /user/
+  controller: App\Controller\UserController::userOrderList
 
 statusCompleted:
   path:       /order/completed/{id}
@@ -102,11 +104,19 @@ orderListStatistics:
 
 getDataFromTable:
   path:       /product/order-dynamic
-  controller: App\Controller\ProductController::getDataProductOrderStatistics
+  controller: App\Controller\Admin\ProductController::getDataProductOrderStatistics
 
 chartPriceByDay:
   path:       /product/price-dynamic
-  controller: App\Controller\ProductController::getDataProductPriceStatistics
+  controller: App\Controller\Admin\ProductController::getDataProductPriceStatistics
+
+getDataOrderStatistics:
+  path:       /order/orders-dynamic
+  controller: App\Controller\Admin\HomeController::getDataOrderStatistics
+
+getDataOrderTotalStatistics:
+  path:       /order/orders-total-dynamic
+  controller: App\Controller\Admin\HomeController::getDataOrderTotalStatistics
 
 product:
   path:       /product/{id}
@@ -115,6 +125,20 @@ product:
     id: '\d+'
 
 productStatistics:
-  path:       /product/statistics/{id}
-  controller: App\Controller\ProductController::productStatistics
+  path:       admin/product/statistics/{id}
+  controller: App\Controller\Admin\ProductController::productStatistics
+
+productListAdmin:
+  path:       /admin/product/list
+  controller: App\Controller\Admin\ProductController::productListAdmin
+
+orderStatistics:
+  path:       /admin
+  controller: App\Controller\Admin\HomeController::orderStatistics
+
+imageLoading:
+  path:       /admin/product/image
+  controller: App\Controller\Admin\ProductController::imageLoading
+  options:
+    expose: true
 

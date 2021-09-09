@@ -4,58 +4,6 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
-import {
-    Chart,
-    ArcElement,
-    LineElement,
-    BarElement,
-    PointElement,
-    BarController,
-    BubbleController,
-    DoughnutController,
-    LineController,
-    PieController,
-    PolarAreaController,
-    RadarController,
-    ScatterController,
-    CategoryScale,
-    LinearScale,
-    LogarithmicScale,
-    RadialLinearScale,
-    TimeScale,
-    TimeSeriesScale,
-    Decimation,
-    Filler,
-    Legend,
-    Title,
-    Tooltip
-} from 'chart.js';
-
-Chart.register(
-    ArcElement,
-    LineElement,
-    BarElement,
-    PointElement,
-    BarController,
-    BubbleController,
-    DoughnutController,
-    LineController,
-    PieController,
-    PolarAreaController,
-    RadarController,
-    ScatterController,
-    CategoryScale,
-    LinearScale,
-    LogarithmicScale,
-    RadialLinearScale,
-    TimeScale,
-    TimeSeriesScale,
-    Decimation,
-    Filler,
-    Legend,
-    Title,
-    Tooltip
-);
 
 require('bootstrap-icons/font/bootstrap-icons.css')
 // import '../node_modules/bootstrap-icons/icons/'
@@ -64,6 +12,7 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
 
 
 $(document).ready(function() {
@@ -122,7 +71,7 @@ $(document).ready(function() {
     $productSpecificationsCollectionHolder.data('index', $productSpecificationsCollectionHolder.find('input').length);
 
     $('body').on('click', '.add_item_link', function(e) {
-        var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+        var $collectionHolderClass = $(this).data('collectionHolderClass');
 
         addFormToCollection($collectionHolderClass);
     });
@@ -143,9 +92,7 @@ function addFormToCollection($collectionHolderClass) {
 
     newForm = newForm.replace(/__name__/g, index);
 
-
     $collectionHolder.data('index', index + 1);
-
 
     var $newFormLi = $('<li class="list-group-item"></li>').append(newForm);
 
@@ -209,67 +156,69 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-    let article = document.getElementById('priceHistory');
-
-    let startDate = $("#dateStart").val();
-    let endDate   = $("#dateEnd").val();
-
-    getChartData('/product/price-dynamic', article.dataset.product, startDate, endDate, '#priceHistory', 'Price');
-    getChartData('/product/order-dynamic', article.dataset.product, startDate, endDate, '#orderHistory', 'Amount');
-
-    $("#submit").on('click', function(e) {
-        let startDate = $("#dateStart").val();
-        let endDate   = $("#dateEnd").val();
-
-        getChartData('/product/price-dynamic', article.dataset.product, startDate, endDate, '#priceHistory', 'Price');
-        getChartData('/product/order-dynamic', article.dataset.product, startDate, endDate, '#orderHistory', 'Amount');
+    $('.edit-form').hide()
+    $("#editProfile").on('click', function(e) {
+        $('.edit-form').show()
     });
 });
 
-function getChartData(url, productId, startDate, endDate, chartId, chartName)
-{
-    $.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            id: productId,
-            start: startDate,
-            end: endDate,
-        },
-        success: function (response) {
-            let data = [];
-            let labels = [];
-            $(response).each(function (e) {
-                data.push(this.y);
-                labels.push(this.x);
-            });
-            renderChart(chartId, labels, data, chartName)
-        },
+$(document).ready(function(){
 
+    function writingToTheForm (path, originalFileName) {
+        let $imagesCollectionHolder = $('ul.images');
+
+        $imagesCollectionHolder.data('index', $imagesCollectionHolder.find('li').length);
+
+        addImageFormToCollection('images', path, originalFileName);
+    }
+
+    function addImageFormToCollection($collectionHolderClass, path, originalFileName) {
+
+        let $collectionHolder = $('.' + $collectionHolderClass);
+
+        let prototype = $collectionHolder.data('prototype');
+
+        let index = $collectionHolder.data('index');
+
+        let newForm = prototype;
+
+        newForm = newForm.replace(/__name__/g, index);
+
+        $collectionHolder.data('index', index + 1);
+
+        let $newFormLi = $('<li></li>').append(newForm);
+
+        $newFormLi.find('input.image-path-input').val(path);
+        $newFormLi.find('input.image-originalFileName-input').val(originalFileName);
+
+        $collectionHolder.append($newFormLi);
+        // addImageFormDeleteLink($newFormLi);
+    }
+
+    let files;
+
+    $('input[type=file]').change(function () {
+        files = this.files;
+        console.log(files);
+        let form = new FormData();
+        let path;
+        let originalFileName;
+        form.append('attachment', files[0])
+        $.ajax({
+            url: Routing.generate('imageLoading'),
+            type: 'POST',
+            data: form,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+                path = response.path;
+                originalFileName = response.originalFileName;
+                writingToTheForm(path, originalFileName)
+            }
+        });
     });
-}
-
-function renderChart(chartWrapperId, labels, data, chartName)
-{
-    let wrapper = $(chartWrapperId);
-    wrapper.html('<canvas class="chart" width="400" height="400"></canvas>');
-    new Chart($(wrapper.find('canvas')), {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: chartName,
-                data: data,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        },
-    });
-}
-
-
-
+});
 
 
 
